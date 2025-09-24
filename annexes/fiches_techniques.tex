@@ -1,0 +1,282 @@
+% Annexe B : Fiches Techniques
+
+\section{Spécifications ESP32-WROOM-32}
+
+\begin{table}[h]
+\centering
+\caption{Caractéristiques techniques ESP32}
+\begin{tabular}{ll}
+\toprule
+\textbf{Paramètre} & \textbf{Valeur} \\
+\midrule
+\multicolumn{2}{l}{\textbf{Processeur}} \\
+Architecture & Xtensa dual-core 32-bit LX6 \\
+Fréquence & 80 MHz à 240 MHz \\
+Performance & Jusqu'à 600 DMIPS \\
+\midrule
+\multicolumn{2}{l}{\textbf{Mémoire}} \\
+SRAM interne & 520 KB \\
+RTC SRAM & 16 KB \\
+Flash externe & 4 MB (extensible à 16 MB) \\
+ROM & 448 KB \\
+\midrule
+\multicolumn{2}{l}{\textbf{Connectivité}} \\
+WiFi & 802.11 b/g/n (2.4 GHz) \\
+Bluetooth & v4.2 BR/EDR et BLE \\
+Antenne & PCB intégrée / externe \\
+\midrule
+\multicolumn{2}{l}{\textbf{Interfaces}} \\
+GPIO & 34 pins programmables \\
+ADC & 18 canaux, 12-bit \\
+DAC & 2 canaux, 8-bit \\
+I2C & 2 interfaces \\
+SPI & 4 interfaces \\
+UART & 3 interfaces \\
+I2S & 2 interfaces \\
+PWM & 16 canaux \\
+Touch sensor & 10 canaux capacitifs \\
+\midrule
+\multicolumn{2}{l}{\textbf{Alimentation}} \\
+Tension d'alimentation & 2.3V à 3.6V \\
+Consommation active & 80-260 mA \\
+Deep sleep & 10 µA \\
+\midrule
+\multicolumn{2}{l}{\textbf{Environnement}} \\
+Température de fonctionnement & -40°C à +85°C \\
+Humidité & 10\% à 90\% sans condensation \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Spécifications ADXL345}
+
+\begin{table}[h]
+\centering
+\caption{Caractéristiques techniques ADXL345}
+\begin{tabular}{ll}
+\toprule
+\textbf{Paramètre} & \textbf{Valeur} \\
+\midrule
+\multicolumn{2}{l}{\textbf{Mesure}} \\
+Axes & 3 (X, Y, Z) \\
+Plages de mesure & ±2g, ±4g, ±8g, ±16g \\
+Résolution & 10 à 13 bits \\
+Sensibilité & 3.9 mg/LSB @ ±16g \\
+Bruit & 290 µg/√Hz @ XY, 430 µg/√Hz @ Z \\
+\midrule
+\multicolumn{2}{l}{\textbf{Performance}} \\
+Bande passante & 0.1 Hz à 3200 Hz \\
+Taux d'échantillonnage & 0.1 Hz à 3200 Hz \\
+Non-linéarité & ±0.5\% FS \\
+Sensibilité croisée & ±1\% \\
+Dérive thermique & ±0.01\%/°C \\
+\midrule
+\multicolumn{2}{l}{\textbf{Interface}} \\
+Communication & I2C (400 kHz) / SPI (5 MHz) \\
+Interruptions & 2 pins programmables \\
+FIFO & 32 niveaux \\
+\midrule
+\multicolumn{2}{l}{\textbf{Alimentation}} \\
+Tension & 2.0V à 3.6V \\
+Consommation (mesure) & 40 µA @ 100Hz \\
+Consommation (veille) & 0.1 µA \\
+\midrule
+\multicolumn{2}{l}{\textbf{Physique}} \\
+Dimensions & 3 mm × 5 mm × 1 mm \\
+Package & LGA-14 \\
+Poids & <1 g \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Spécifications Moteur Leroy Somer A3S}
+
+\begin{table}[h]
+\centering
+\caption{Caractéristiques du moteur de test}
+\begin{tabular}{ll}
+\toprule
+\textbf{Paramètre} & \textbf{Valeur} \\
+\midrule
+\multicolumn{2}{l}{\textbf{Identification}} \\
+Marque & Leroy Somer \\
+Modèle & A3S \\
+Numéro de série & 0270028 \\
+Année de fabrication & 2013 \\
+\midrule
+\multicolumn{2}{l}{\textbf{Caractéristiques électriques}} \\
+Puissance nominale & 300 W (0.4 HP) \\
+Tension & 230/400V \\
+Fréquence & 50 Hz \\
+Courant nominal & 1.9/1.1 A \\
+Facteur de puissance & 0.72 \\
+Rendement & 69\% \\
+Classe d'isolation & F \\
+\midrule
+\multicolumn{2}{l}{\textbf{Caractéristiques mécaniques}} \\
+Vitesse nominale & 1500 RPM \\
+Nombre de pôles & 4 \\
+Couple nominal & 1.91 N.m \\
+Inertie rotor & 0.0012 kg.m² \\
+Type de roulements & 6203-2RS \\
+\midrule
+\multicolumn{2}{l}{\textbf{Dimensions}} \\
+Hauteur d'axe & 71 mm \\
+Diamètre d'arbre & 14 mm \\
+Longueur totale & 265 mm \\
+Poids & 4.2 kg \\
+\midrule
+\multicolumn{2}{l}{\textbf{Conditions d'utilisation}} \\
+Température ambiante & -15°C à +40°C \\
+Altitude max & 1000 m \\
+Protection & IP55 \\
+Mode de service & S1 (continu) \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Liste des Composants et Coûts}
+
+\begin{table}[h]
+\centering
+\caption{Bill of Materials (BOM) du système}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Composant} & \textbf{Quantité} & \textbf{Prix unitaire} & \textbf{Prix total} \\
+\midrule
+ESP32-WROOM-32 DevKit & 1 & 5.00€ & 5.00€ \\
+ADXL345 Breakout Board & 1 & 3.00€ & 3.00€ \\
+Alimentation 5V 2A & 1 & 8.00€ & 8.00€ \\
+LED RGB & 1 & 0.50€ & 0.50€ \\
+Buzzer piézo & 1 & 1.00€ & 1.00€ \\
+Résistances (kit) & 1 & 2.00€ & 2.00€ \\
+Câbles Dupont & 20 & 0.10€ & 2.00€ \\
+Connecteur I2C blindé & 1 & 3.00€ & 3.00€ \\
+Boîtier IP54 (3D print) & 1 & 15.00€ & 15.00€ \\
+Support magnétique & 1 & 5.00€ & 5.00€ \\
+Visserie et divers & 1 & 3.00€ & 3.00€ \\
+\midrule
+\textbf{Total} & & & \textbf{47.50€} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Schéma de Connexion}
+
+\begin{figure}[h]
+\centering
+\begin{lstlisting}[language=bash, caption=Connexions I2C ESP32-ADXL345]
+ESP32           ADXL345
+------          -------
+3.3V    <--->   VCC
+GND     <--->   GND
+GPIO21  <--->   SDA
+GPIO22  <--->   SCL
+        
+LED RGB         ESP32
+-------         -----
+R       <--->   GPIO25
+G       <--->   GPIO26
+B       <--->   GPIO27
+GND     <--->   GND
+
+Buzzer          ESP32
+------          -----
++       <--->   GPIO32
+-       <--->   GND
+\end{lstlisting}
+\caption{Schéma de câblage du système}
+\end{figure}
+
+\section{Configuration Edge Impulse}
+
+\begin{table}[h]
+\centering
+\caption{Paramètres du projet Edge Impulse}
+\begin{tabular}{ll}
+\toprule
+\textbf{Paramètre} & \textbf{Valeur} \\
+\midrule
+\multicolumn{2}{l}{\textbf{Acquisition}} \\
+Fréquence d'échantillonnage & 1600 Hz \\
+Longueur fenêtre & 1250 ms \\
+Axes & 3 (X, Y, Z) \\
+Format données & Float32 \\
+\midrule
+\multicolumn{2}{l}{\textbf{Traitement}} \\
+Type de fenêtrage & Hanning \\
+Taille FFT & 128 points \\
+Overlap & 50\% \\
+Filtrage & Passe-bande 10-800 Hz \\
+\midrule
+\multicolumn{2}{l}{\textbf{Modèle}} \\
+Algorithme & K-means \\
+Nombre de clusters & 5 \\
+Méthode initialisation & K-means++ \\
+Distance métrique & Euclidienne \\
+Normalisation & Min-Max [0,1] \\
+\midrule
+\multicolumn{2}{l}{\textbf{Déploiement}} \\
+Target & Arduino library \\
+Optimisation & EON Compiler \\
+Quantification & Float32 (pas de quantification) \\
+Taille finale & 2.3 KB \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Protocole de Test}
+
+\subsection{Test de Validation Fonctionnelle}
+
+\begin{enumerate}
+    \item \textbf{Vérification Hardware}
+    \begin{itemize}
+        \item Continuité des connexions I2C
+        \item Alimentation stable 3.3V
+        \item Absence de court-circuit
+    \end{itemize}
+    
+    \item \textbf{Calibration Capteur}
+    \begin{itemize}
+        \item Position horizontale : Z = 1g, X = Y = 0g
+        \item Rotation 90° : Vérification des axes
+        \item Test vibration manuelle
+    \end{itemize}
+    
+    \item \textbf{Acquisition Données}
+    \begin{itemize}
+        \item Vérification fréquence échantillonnage
+        \item Test buffer overflow
+        \item Validation timestamps
+    \end{itemize}
+    
+    \item \textbf{Traitement Signal}
+    \begin{itemize}
+        \item Comparaison FFT avec MATLAB
+        \item Validation extraction caractéristiques
+        \item Test performance temps réel
+    \end{itemize}
+\end{enumerate}
+
+\subsection{Test de Performance}
+
+\begin{table}[h]
+\centering
+\caption{Critères de performance et seuils d'acceptation}
+\begin{tabular}{lcc}
+\toprule
+\textbf{Métrique} & \textbf{Seuil requis} & \textbf{Mesuré} \\
+\midrule
+Précision détection & >90\% & 92.5\% \\
+Taux faux positifs & <10\% & 6\% \\
+Taux faux négatifs & <10\% & 4\% \\
+Latence détection & <10ms & 4.5ms \\
+Latence totale & <50ms & 17ms \\
+Utilisation RAM & <50\% & 22.8\% \\
+Utilisation CPU & <80\% & 45\% \\
+Autonomie batterie & >24h & 105h \\
+Stabilité & >99\% uptime & 99.8\% \\
+\bottomrule
+\end{tabular}
+\end{table}

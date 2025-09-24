@@ -1,0 +1,451 @@
+\documentclass[oneside, french, a4paper, 12pt, reqno]{book}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[main=french]{babel}
+\usepackage[left=2.5cm,right=2.5cm,top=2.5cm,bottom=2.5cm,headheight=15pt]{geometry}
+
+% Packages essentiels pour mise en forme
+\usepackage{xcolor}
+\usepackage{tikz}
+\usepackage{tcolorbox}
+\usepackage[explicit]{titlesec}
+\usepackage{fancyhdr}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{array,ragged2e}
+\usepackage{multirow}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{chngcntr}
+\usepackage[bottom]{footmisc}
+\usepackage{minitoc}
+\usepackage{graphicx}
+\usepackage{needspace}
+
+% Packages pour math et code
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{extarrows}
+\usepackage{siunitx}
+\usepackage{listings}
+\usepackage{algorithm}
+\usepackage{algpseudocode}  % Remplace algorithmic (déprécié)
+\usepackage{pgfplots}
+
+% Autres packages utiles
+\usepackage{xspace}
+\usepackage[normalem]{ulem}
+\usepackage{soul}
+\usepackage{scrextend}
+\usepackage{colortbl}
+\usepackage{wasysym}
+\usepackage{adjustbox}
+\usepackage{changepage}
+\usepackage{hhline}
+\usepackage{multicol}
+\usepackage{makecell}
+\usepackage{tabto}
+\usepackage{textcomp}
+\usepackage{lipsum}
+\usepackage{flowchart}
+\usepackage[toc,page]{appendix}
+
+% Package important à charger avant hyperref
+\usepackage[nottoc]{tocbibind}
+
+% Packages pour la typographie française
+\usepackage{csquotes}  % Pour les guillemets français
+\usepackage[autolanguage]{numprint}  % Formatage des nombres en français
+\usepackage{microtype}  % Amélioration de la typographie
+
+% Hyperliens (TOUJOURS charger en dernier)
+\usepackage[hidelinks]{hyperref}
+
+% Configuration PDF et métadonnées
+\hypersetup{
+    pdftitle={Système de Détection d'Anomalies pour Moteurs Industriels basé sur l'Intelligence Artificielle Embarquée},
+    pdfauthor={Ahmed Abdellahi Abdat},
+    pdfsubject={Projet de Fin d'Études - Master EEEA - FSB},
+    pdfkeywords={TinyML, Maintenance prédictive, ESP32, Détection d'anomalies, K-means}
+}
+
+% Configuration TikZ et PGFPlots
+\usetikzlibrary{shapes.symbols,shapes.geometric,shadows,arrows.meta,calc,positioning}
+\tikzset{>={Latex[width=1.5mm,length=2mm]}}
+\pgfplotsset{width=10cm,compat=1.9}
+
+% Définition des couleurs
+\definecolor{chapterColor}{RGB}{1,56,115}     % Bleu FSB
+\definecolor{sectionColor}{RGB}{70,130,180}   % Bleu clair
+\definecolor{tableRow1}{RGB}{210,234,241}     % Gris-bleu clair
+\definecolor{gray75}{gray}{0.75}
+\definecolor{Gris1}{RGB}{116,134,170}
+\definecolor{Gris2}{RGB}{249,249,249}
+\definecolor{mygreen}{RGB}{28,172,0}
+\definecolor{mylilas}{RGB}{170,55,241}
+\definecolor{MyBlue}{HTML}{4c72b0}
+\definecolor{MyGreen}{HTML}{55a868}
+\definecolor{MyOrange}{HTML}{dd8452}
+\definecolor{MyRed}{HTML}{c44e52}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% STYLE DES CHAPITRES - PLEINE PAGE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Style pour les chapitres numérotés (page complète)
+\titleformat{\chapter}[display]%
+  {\normalfont\huge\bfseries}%
+  {}%
+  {0pt}%
+  {\thispagestyle{empty}\vspace*{\fill}%
+   \begin{center}%
+     % Ligne supérieure décorative
+     \textcolor{chapterColor}{\rule{0.5\textwidth}{2pt}}\\[2cm]%
+     % Mot "CHAPITRE"
+     {\Large\scshape\color{gray75}CHAPITRE}\\[\baselineskip]%
+     % Grande boîte avec le numéro
+     \colorbox{chapterColor}{%
+       \parbox[c][3cm][c]{3cm}{%
+         \centering\textcolor{white}{\fontsize{60}{60}\selectfont\bfseries\thechapter}%
+       }%
+     }\\[2cm]%
+     % Titre du chapitre
+     {\Huge\bfseries\color{chapterColor}#1}\\[2cm]%
+     % Ligne inférieure décorative
+     \textcolor{chapterColor}{\rule{0.5\textwidth}{2pt}}%
+   \end{center}%
+   \vspace*{\fill}\newpage%
+  }
+
+% Chapitres non numérotés (style ENETCOM avec boîte colorée à gauche)
+\newlength\BoxWd
+\setlength\BoxWd{10mm}
+\titleformat{name=\chapter, numberless}[display]%
+  {\fontsize{26}{6}\bfseries\selectfont}%
+  {%
+    {\hspace*{-1.5mm}\normalfont\fontsize{14}{6}\selectfont{~}}\\%
+    \colorbox{chapterColor}{%
+      \parbox[c][20mm][t]{\BoxWd}{%
+        \vspace{2.5mm}\centering\textcolor{white}{~}%
+      }%
+    }%
+  }%
+  {-10mm}%
+  {%
+    \vspace{-5mm}\hspace*{15mm}\titlerule[2pt]\\\\\hspace*{15mm}#1%
+  }
+
+% Espacement des chapitres
+\titlespacing*{\chapter}{0pt}{0pt}{0pt}
+\titlespacing*{name=\chapter,numberless}{0pt}{50pt}{40pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% STYLE DES SECTIONS ET SOUS-SECTIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\titleformat{\section}[block]%
+  {\Large\bfseries\color{sectionColor}}{\thesection}%
+  {1em}{\Large{#1}}  % Utilise em au lieu de pt, supprime le bfseries redondant
+  
+\titleformat{\subsection}[block]%
+  {\large\bfseries\color{sectionColor}}{\thesubsection}%
+  {0.8em}{\large{#1}}
+
+\titleformat{\subsubsection}[block]%
+  {\normalsize\bfseries\color{sectionColor}}{\thesubsubsection}%
+  {0.6em}{\normalsize{#1}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Configuration du code source
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{Gris2},
+    commentstyle=\color{mygreen},
+    keywordstyle=\color{blue},
+    numberstyle=\tiny\color{gray},
+    stringstyle=\color{mylilas},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,
+    breaklines=true,
+    captionpos=b,
+    keepspaces=true,
+    numbers=left,
+    numbersep=5pt,
+    showspaces=false,
+    showstringspaces=false,
+    showtabs=false,
+    tabsize=2,
+    frame=single,
+    rulecolor=\color{gray75}
+}
+\lstset{style=mystyle}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CONFIGURATION DES LÉGENDES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\captionsetup{
+  labelfont=bf,
+  font={singlespacing,small},
+  justification=centering,
+  textfont=it
+}
+
+% Configuration des marges et espacements
+\setcounter{tocdepth}{3}
+\setcounter{secnumdepth}{3}
+\setlistdepth{9}
+\counterwithout{footnote}{chapter}
+
+% Configuration des listes
+\renewlist{enumerate}{enumerate}{9}
+\setlist[enumerate,1]{label=\arabic*.}
+\setlist[enumerate,2]{label=\alph).}
+\renewlist{itemize}{itemize}{9}
+\setlist[itemize,1]{label=\textbullet}
+\setlist[itemize,2]{label=\textendash}
+\setlist[itemize,3]{label=$\ast$}
+
+% Configuration de l'espacement des paragraphes
+\setlength{\parskip}{1ex}
+\setlength{\parindent}{0pt}
+\frenchspacing  % Espacement français correct
+\renewcommand\bibname{Bibliographie}
+\newcommand{\HRule}[1][\linewidth]{\rule{#1}{0.5mm}}
+\renewcommand{\arraystretch}{1.3}
+
+% Éviter les césures
+\hyphenpenalty=10000
+\exhyphenpenalty=10000
+
+% Configuration minitoc
+\dominitoc
+\mtcsettitle{minitoc}{Sommaire}
+\mtcsetdepth{minitoc}{2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EN-TÊTES ET PIEDS DE PAGE STYLE PROFESSIONNEL
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\fancypagestyle{pfeStyle}{
+  \renewcommand{\headrulewidth}{0.5pt}
+  \renewcommand{\footrulewidth}{0.5pt}
+  \fancyhf{}
+  \fancyhead[L]{\fontsize{11}{11}\selectfont\nouppercase{\leftmark}}
+  \fancyhead[R]{\fontsize{11}{11}\selectfont\nouppercase{\rightmark}}
+  \fancyfoot[L]{\fontsize{10}{10}\selectfont FSB - Master EEEA}
+  \fancyfoot[C]{\fontsize{10}{10}\selectfont 2024-2025}
+  \fancyfoot[R]{\fontsize{10}{10}\selectfont Page \thepage}
+}
+
+\fancypagestyle{plain}{
+  \renewcommand{\headrulewidth}{0pt}
+  \renewcommand{\footrulewidth}{0.5pt}
+  \fancyhf{}
+  \fancyfoot[L]{\fontsize{10}{10}\selectfont FSB - Master EEEA}
+  \fancyfoot[C]{\fontsize{10}{10}\selectfont Page \thepage}
+  \fancyfoot[R]{\fontsize{10}{10}\selectfont 2024-2025}
+}
+
+% Commande pour page blanche
+\newcommand\blankpage{%
+    \null
+    \thispagestyle{empty}%
+    \addtocounter{page}{-1}%
+    \newpage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DÉBUT DU DOCUMENT
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+
+% Configuration du style de page
+\pagestyle{pfeStyle}
+\frontmatter  % Numérotation romaine pour les pages liminaires
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PAGE DE GARDE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{titlepage}
+    \thispagestyle{empty}
+    \begin{center}
+        \vspace*{-2cm}
+        
+        % En-tête institutionnel
+        \textsc{\Large Université de Sfax}\\[0.5cm]
+        \textsc{\Large Faculté des Sciences de Sfax}\\[0.5cm]
+        \textsc{Département de Physique}\\[1.5cm]
+        
+        % Encadré du titre principal
+        \HRule[0.8\textwidth]\\[0.4cm]
+        {\huge\bfseries PROJET DE FIN D'ÉTUDES}\\[0.2cm]
+        \HRule[0.8\textwidth]\\[1.5cm]
+        
+        % Titre du projet dans un cadre coloré
+        \begin{tcolorbox}[
+            colback=Gris2,
+            colframe=chapterColor,
+            boxrule=2pt,
+            arc=0mm,
+            width=0.9\textwidth,
+            center
+        ]
+            \centering
+            \Large\bfseries Système de Détection d'Anomalies pour\\
+            Moteurs Industriels basé sur\\
+            l'Intelligence Artificielle Embarquée\\[0.5cm]
+            \large Application du TinyML pour la Maintenance Prédictive
+        \end{tcolorbox}
+        
+        \vspace{1.5cm}
+        
+        % Informations sur l'étudiant et l'encadrant
+        \begin{minipage}{0.45\textwidth}
+            \begin{flushleft}
+                \large
+                \textbf{Présenté par :}\\
+                Ahmed Abdellahi ABDAT\\[0.5cm]
+                \textbf{Encadré par :}\\
+                Dr. Khalil JOUILI
+            \end{flushleft}
+        \end{minipage}
+        \hfill
+        \begin{minipage}{0.45\textwidth}
+            \begin{flushright}
+                \large
+                \textbf{Formation :}\\
+                Master Électronique,\\
+                Énergie Électrique et Automatique\\[0.5cm]
+                \textbf{Année universitaire :}\\
+                2024-2025
+            \end{flushright}
+        \end{minipage}
+        
+        \vfill
+        
+        % Cadre pour le jury
+        \begin{tcolorbox}[
+            colback=white,
+            colframe=gray75,
+            boxrule=1pt,
+            arc=2mm,
+            width=0.8\textwidth,
+            center
+        ]
+            \centering\large\textbf{Jury de Soutenance}\\[0.5cm]
+            \begin{tabular}{ll}
+                \textbf{Président :} & Pr. [À définir] \\
+                \textbf{Rapporteur :} & Dr. Khalil JOUILI \\
+                \textbf{Examinateur :} & Dr. [À définir] \\
+            \end{tabular}
+        \end{tcolorbox}
+        
+        \vspace{1cm}
+        Date de soutenance : \_\_\_\_\_\_\_\_\_\_\_\_
+    \end{center}
+\end{titlepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% REMERCIEMENTS avec DÉDICACE intégrée
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{REMERCIEMENTS}
+\addcontentsline{toc}{chapter}{Remerciements}
+\thispagestyle{plain}
+
+\vspace{0.5cm}
+\begin{center}
+    \Large\itshape
+    À mes parents, pour leur amour et leur soutien inconditionnel\\[0.5cm]
+    À mes frères et sœurs, pour leurs encouragements constants
+\end{center}
+\vspace{1cm}
+
+\begin{large}
+Nos remerciements vont tout d'abord à \textbf{Dieu Tout-Puissant} pour la volonté, la santé et la patience qu'Il nous a accordées durant toutes ces années.
+
+Nous exprimons notre profonde gratitude à nos \textbf{parents}, ainsi qu'à nos \textbf{frères et sœurs}, qui nous ont soutenus par leurs encouragements tout au long de nos études.
+
+Nous adressons également nos plus sincères remerciements à \textbf{Dr. Khalil Jouili}, pour son encadrement, ses conseils méthodologiques et sa disponibilité tout au long de ce projet.
+
+Enfin, nous remercions toute personne, de près ou de loin, qui a contribué à rendre ce travail réalisable et présentable.
+\end{large}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% RÉSUMÉS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{RÉSUMÉ}
+\addcontentsline{toc}{chapter}{Résumé}
+\thispagestyle{plain}
+
+\begin{spacing}{1.3}
+Ce projet présente le développement d'un système de détection d'anomalies pour moteurs industriels basé sur l'intelligence artificielle embarquée. L'approche proposée utilise le TinyML sur microcontrôleur ESP32 pour permettre une maintenance prédictive accessible aux PME industrielles. Le système utilise l'apprentissage non-supervisé (K-means) nécessitant uniquement des données de fonctionnement normal pour l'entraînement, éliminant ainsi le besoin de créer des défauts réels. La solution complète, d'un coût inférieur à 50€, offre une détection en temps réel avec une latence inférieure à 10ms et une autonomie totale sans dépendance cloud. Les tests réalisés au laboratoire FSB sur un moteur Leroy Somer démontrent une précision supérieure à 90\% dans la détection d'anomalies vibratoires. Ce travail représente une innovation significative en démocratisant l'accès à la maintenance prédictive pour les entreprises exclues des solutions commerciales actuelles.\\[0.5cm]
+\end{spacing}
+
+\vspace{0.5cm}
+\noindent\textbf{Mots-clés :} TinyML, Maintenance prédictive, ESP32, Détection d'anomalies, K-means, Analyse vibratoire, Industry 4.0, Edge Computing
+
+\chapter*{ABSTRACT}
+\addcontentsline{toc}{chapter}{Abstract}
+\thispagestyle{plain}
+
+\begin{spacing}{1.3}
+This project presents the development of an anomaly detection system for industrial motors based on embedded artificial intelligence. The proposed approach uses TinyML on ESP32 microcontroller to enable predictive maintenance accessible to industrial SMEs. The system employs unsupervised learning (K-means) requiring only normal operating data for training, thus eliminating the need to create real faults. The complete solution, costing less than €50, offers real-time detection with latency below 10ms and complete autonomy without cloud dependency. Tests conducted at the FSB laboratory on a Leroy Somer motor demonstrate accuracy exceeding 90\% in vibration anomaly detection. This work represents a significant innovation by democratizing access to predictive maintenance for companies excluded from current commercial solutions.\\[0.5cm]
+\end{spacing}
+
+\vspace{0.5cm}
+\noindent\textbf{Keywords:} TinyML, Predictive maintenance, ESP32, Anomaly detection, K-means, Vibration analysis, Industry 4.0, Edge Computing
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TABLE DES MATIÈRES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\renewcommand*\contentsname{TABLE DES MATIÈRES}
+\addtocontents{toc}{\protect\thispagestyle{plain}}
+\begin{spacing}{1}
+    \tableofcontents
+\end{spacing}
+
+% Liste des tableaux
+\cleardoublepage
+\renewcommand{\listtablename}{LISTE DES TABLEAUX}
+\addtocontents{lot}{\protect\thispagestyle{plain}}
+\listoftables
+\addcontentsline{toc}{chapter}{\listtablename}
+
+% Liste des figures
+\cleardoublepage
+\renewcommand{\listfigurename}{LISTE DES FIGURES}
+\addtocontents{lof}{\protect\thispagestyle{plain}}
+\listoffigures
+\addcontentsline{toc}{chapter}{\listfigurename}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% LISTE DES SYMBOLES
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter*{LISTE DES SYMBOLES}
+\addcontentsline{toc}{chapter}{Liste des symboles}
+\thispagestyle{plain}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% INTRODUCTION GÉNÉRALE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\mainmatter  % Passage à la numérotation arabe
+
+\input{chapitres/introduction}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% CHAPITRE 1 : ÉTAT DE L'ART
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\input{chapitres/chapitre1_etat_art}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BIBLIOGRAPHIE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\cleardoublepage
+\renewcommand{\bibname}{Bibliographie}
+\bibliographystyle{IEEEtran}
+\bibliography{bibliographie}
+
+\end{document}

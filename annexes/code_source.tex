@@ -1,0 +1,451 @@
+% Annexe A : Code Source du Système
+
+\section{Configuration du Capteur ADXL345}
+
+\begin{lstlisting}[language=C, caption=Initialisation du capteur ADXL345]
+#include <Wire.h>
+#include "ADXL345.h"
+
+#define ADXL345_ADDRESS 0x53
+#define ADXL345_POWER_CTL 0x2D
+#define ADXL345_DATA_FORMAT 0x31
+#define ADXL345_BW_RATE 0x2C
+#define ADXL345_DATAX0 0x32
+
+void setupADXL345() {
+    Wire.begin();
+    
+    // Configuration de la plage de mesure +/-16g
+    Wire.beginTransmission(ADXL345_ADDRESS);
+    Wire.write(ADXL345_DATA_FORMAT);
+    Wire.write(0x0B); // +/-16g, résolution complète
+    Wire.endTransmission();
+    
+    // Configuration du taux d'échantillonnage à 1600Hz
+    Wire.beginTransmission(ADXL345_ADDRESS);
+    Wire.write(ADXL345_BW_RATE);
+    Wire.write(0x0E); // 1600Hz
+    Wire.endTransmission();
+    
+    // Activation de la mesure
+    Wire.beginTransmission(ADXL345_ADDRESS);
+    Wire.write(ADXL345_POWER_CTL);
+    Wire.write(0x08); // Mode mesure
+    Wire.endTransmission();
+    
+    Serial.println("ADXL345 initialisé avec succès");
+}
+
+void readAcceleration(int16_t* x, int16_t* y, int16_t* z) {
+    uint8_t buffer[6];
+    
+    Wire.beginTransmission(ADXL345_ADDRESS);
+    Wire.write(ADXL345_DATAX0);
+    Wire.endTransmission(false);
+    
+    Wire.requestFrom(ADXL345_ADDRESS, 6, true);
+    for(int i = 0; i < 6; i++) {
+        buffer[i] = Wire.read();
+    }
+    
+    *x = (buffer[1] << 8) | buffer[0];
+    *y = (buffer[3] << 8) | buffer[2];
+    *z = (buffer[5] << 8) | buffer[4];
+}
+\end{lstlisting}
+
+\section{Implémentation de la FFT}
+
+\begin{lstlisting}[language=C, caption=Calcul FFT optimisé pour ESP32]
+#include "esp_dsp.h"
+
+#define FFT_SIZE 128
+#define SAMPLE_RATE 1600
+
+float wind_hann[FFT_SIZE];
+float fft_input[FFT_SIZE * 2];
+float fft_output[FFT_SIZE];
+
+void initFFT() {
+    // Initialisation de la fenêtre de Hanning
+    for (int i = 0; i < FFT_SIZE; i++) {
+        wind_hann[i] = 0.5 - 0.5 * cosf(2 * M_PI * i / (FFT_SIZE - 1));
+    }
+    
+    // Initialisation de la bibliothèque DSP
+    esp_err_t ret = dsps_fft2r_init_fc32(NULL, CONFIG_DSP_MAX_FFT_SIZE);
+    if (ret != ESP_OK) {
+        Serial.println("Erreur initialisation FFT");
+    }
+}
+
+void computeFFT(float* input, float* magnitude) {
+    // Application de la fenêtre de Hanning
+    for (int i = 0; i < FFT_SIZE; i++) {
+        fft_input[i * 2] = input[i] * wind_hann[i];  // Real
+        fft_input[i * 2 + 1] = 0;                    // Imaginary
+    }
+    
+    // Calcul de la FFT
+    dsps_fft2r_fc32(fft_input, FFT_SIZE);
+    
+    // Bit-reversal
+    dsps_bit_rev_fc32(fft_input, FFT_SIZE);
+    
+    // Conversion complexe vers réel
+    dsps_cplx2reC_fc32(fft_input, FFT_SIZE);
+    
+    // Calcul de la magnitude
+    for (int i = 0; i < FFT_SIZE / 2; i++) {
+        float real = fft_input[i * 2];
+        float imag = fft_input[i * 2 + 1];
+        magnitude[i] = sqrtf(real * real + imag * imag);
+    }
+}
+\end{lstlisting}
+
+\section{Extraction de Caractéristiques}
+
+\begin{lstlisting}[language=C, caption=Extraction des caractéristiques temporelles et fréquentielles]
+typedef struct {
+    float rms;
+    float crest_factor;
+    float kurtosis;
+    float skewness;
+    float peak_frequency;
+    float spectral_centroid;
+    float energy_bands[8];
+} Features;
+
+Features extractFeatures(float* time_data, float* freq_data, int size) {
+    Features features = {0};
+    
+    // RMS (Root Mean Square)
+    float sum_squares = 0;
+    float mean = 0;
+    float max_val = 0;
+    
+    for (int i = 0; i < size; i++) {
+        mean += time_data[i];
+        sum_squares += time_data[i] * time_data[i];
+        if (fabs(time_data[i]) > max_val) {
+            max_val = fabs(time_data[i]);
+        }
+    }
+    
+    mean /= size;
+    features.rms = sqrtf(sum_squares / size);
+    
+    // Facteur de crête
+    features.crest_factor = max_val / features.rms;
+    
+    // Kurtosis et Skewness
+    float sum_cubed = 0;
+    float sum_quad = 0;
+    float variance = 0;
+    
+    for (int i = 0; i < size; i++) {
+        float diff = time_data[i] - mean;
+        variance += diff * diff;
+        sum_cubed += diff * diff * diff;
+        sum_quad += diff * diff * diff * diff;
+    }
+    
+    variance /= size;
+    float std_dev = sqrtf(variance);
+    
+    features.skewness = (sum_cubed / size) / powf(std_dev, 3);
+    features.kurtosis = (sum_quad / size) / powf(variance, 2) - 3;
+    
+    // Caractéristiques fréquentielles
+    float max_mag = 0;
+    int peak_bin = 0;
+    float total_energy = 0;
+    float weighted_sum = 0;
+    
+    for (int i = 1; i < FFT_SIZE/2; i++) {
+        float mag = freq_data[i];
+        total_energy += mag;
+        weighted_sum += mag * i;
+        
+        if (mag > max_mag) {
+            max_mag = mag;
+            peak_bin = i;
+        }
+    }
+    
+    // Fréquence du pic principal
+    features.peak_frequency = (peak_bin * SAMPLE_RATE) / FFT_SIZE;
+    
+    // Centroïde spectral
+    features.spectral_centroid = weighted_sum / total_energy;
+    
+    // Énergie par bandes
+    int band_size = (FFT_SIZE/2) / 8;
+    for (int b = 0; b < 8; b++) {
+        float band_energy = 0;
+        for (int i = b * band_size; i < (b+1) * band_size; i++) {
+            band_energy += freq_data[i];
+        }
+        features.energy_bands[b] = band_energy;
+    }
+    
+    return features;
+}
+\end{lstlisting}
+
+\section{Algorithme K-means pour Détection d'Anomalies}
+
+\begin{lstlisting}[language=C, caption=Implémentation K-means optimisée]
+#define NUM_CLUSTERS 5
+#define NUM_FEATURES 32
+#define ANOMALY_THRESHOLD 2.5
+
+typedef struct {
+    float centroid[NUM_FEATURES];
+    float radius;
+} Cluster;
+
+// Centroïdes et rayons entraînés sur Edge Impulse
+Cluster clusters[NUM_CLUSTERS] = {
+    // Cluster 0: Fonctionnement normal
+    {{0.124f, 0.087f, 0.156f, /* ... */}, 0.125f},
+    // Cluster 1: Démarrage
+    {{0.156f, 0.102f, 0.189f, /* ... */}, 0.187f},
+    // Cluster 2: Basse charge
+    {{0.098f, 0.076f, 0.112f, /* ... */}, 0.098f},
+    // Cluster 3: Haute charge
+    {{0.189f, 0.143f, 0.234f, /* ... */}, 0.156f},
+    // Cluster 4: Transitoire
+    {{0.145f, 0.091f, 0.167f, /* ... */}, 0.134f}
+};
+
+float euclideanDistance(float* a, float* b) {
+    float sum = 0;
+    for (int i = 0; i < NUM_FEATURES; i++) {
+        float diff = a[i] - b[i];
+        sum += diff * diff;
+    }
+    return sqrtf(sum);
+}
+
+int detectAnomaly(float* features, float* confidence) {
+    float min_distance = FLT_MAX;
+    int best_cluster = -1;
+    
+    // Trouver le cluster le plus proche
+    for (int k = 0; k < NUM_CLUSTERS; k++) {
+        float dist = euclideanDistance(features, clusters[k].centroid);
+        if (dist < min_distance) {
+            min_distance = dist;
+            best_cluster = k;
+        }
+    }
+    
+    // Calculer la confiance
+    float threshold = clusters[best_cluster].radius * ANOMALY_THRESHOLD;
+    *confidence = min_distance / threshold;
+    
+    // Détection d'anomalie
+    if (min_distance > threshold) {
+        return 1; // Anomalie détectée
+    }
+    
+    return 0; // Normal
+}
+\end{lstlisting}
+
+\section{Communication WiFi et MQTT}
+
+\begin{lstlisting}[language=C, caption=Gestion des alertes via MQTT]
+#include <WiFi.h>
+#include <PubSubClient.h>
+#include <ArduinoJson.h>
+
+const char* ssid = "LAB_FSB_WIFI";
+const char* password = "********";
+const char* mqtt_server = "192.168.1.100";
+const char* mqtt_topic = "maintenance/motor/alerts";
+
+WiFiClient espClient;
+PubSubClient mqttClient(espClient);
+
+void setupWiFi() {
+    delay(10);
+    Serial.print("Connexion à ");
+    Serial.println(ssid);
+    
+    WiFi.begin(ssid, password);
+    
+    while (WiFi.status() != WL_CONNECTED) {
+        delay(500);
+        Serial.print(".");
+    }
+    
+    Serial.println("");
+    Serial.println("WiFi connecté");
+    Serial.println("Adresse IP: ");
+    Serial.println(WiFi.localIP());
+}
+
+void setupMQTT() {
+    mqttClient.setServer(mqtt_server, 1883);
+    
+    while (!mqttClient.connected()) {
+        Serial.print("Connexion MQTT...");
+        String clientId = "ESP32-Motor-Monitor";
+        
+        if (mqttClient.connect(clientId.c_str())) {
+            Serial.println("connecté");
+        } else {
+            Serial.print("échec, rc=");
+            Serial.print(mqttClient.state());
+            Serial.println(" nouvelle tentative dans 5 secondes");
+            delay(5000);
+        }
+    }
+}
+
+void sendAlert(int anomaly_type, float confidence) {
+    StaticJsonDocument<256> doc;
+    
+    doc["timestamp"] = millis();
+    doc["device_id"] = "MOTOR_001";
+    doc["location"] = "Lab_FSB_BancTest";
+    doc["anomaly_detected"] = true;
+    doc["anomaly_type"] = anomaly_type;
+    doc["confidence"] = confidence;
+    doc["severity"] = confidence > 0.8 ? "HIGH" : "MEDIUM";
+    
+    // Ajout des données de contexte
+    JsonObject context = doc.createNestedObject("context");
+    context["motor_model"] = "Leroy_Somer_A3S";
+    context["rpm"] = 1500;
+    context["temperature"] = 45.2;
+    
+    char buffer[512];
+    size_t n = serializeJson(doc, buffer);
+    
+    if (mqttClient.publish(mqtt_topic, buffer, n)) {
+        Serial.println("Alerte envoyée avec succès");
+    } else {
+        Serial.println("Échec envoi alerte");
+    }
+}
+\end{lstlisting}
+
+\section{Programme Principal}
+
+\begin{lstlisting}[language=C, caption=Boucle principale du système]
+#define BUFFER_SIZE 2000
+#define ACQUISITION_TIME 1250 // ms
+
+float buffer_x[BUFFER_SIZE];
+float buffer_y[BUFFER_SIZE];
+float buffer_z[BUFFER_SIZE];
+int buffer_index = 0;
+unsigned long last_acquisition = 0;
+
+void setup() {
+    Serial.begin(115200);
+    Serial.println("Système de détection d'anomalies v1.0");
+    Serial.println("FSB - Master EEEA 2024-2025");
+    
+    // Initialisation des composants
+    setupADXL345();
+    initFFT();
+    setupWiFi();
+    setupMQTT();
+    
+    // Configuration des LEDs
+    pinMode(LED_GREEN, OUTPUT);
+    pinMode(LED_ORANGE, OUTPUT);
+    pinMode(LED_RED, OUTPUT);
+    
+    digitalWrite(LED_GREEN, HIGH);
+    Serial.println("Système prêt");
+}
+
+void loop() {
+    // Acquisition des données
+    if (buffer_index < BUFFER_SIZE) {
+        if (millis() - last_acquisition >= 1) { // 1ms = 1000Hz
+            int16_t x, y, z;
+            readAcceleration(&x, &y, &z);
+            
+            // Conversion en g
+            buffer_x[buffer_index] = x * 0.0078f; // ±16g range
+            buffer_y[buffer_index] = y * 0.0078f;
+            buffer_z[buffer_index] = z * 0.0078f;
+            
+            buffer_index++;
+            last_acquisition = millis();
+        }
+    } else {
+        // Traitement du buffer complet
+        unsigned long start_time = micros();
+        
+        // Calcul FFT sur chaque axe
+        float magnitude_x[FFT_SIZE/2];
+        float magnitude_y[FFT_SIZE/2];
+        float magnitude_z[FFT_SIZE/2];
+        
+        computeFFT(buffer_x, magnitude_x);
+        computeFFT(buffer_y, magnitude_y);
+        computeFFT(buffer_z, magnitude_z);
+        
+        // Extraction des caractéristiques
+        Features feat_x = extractFeatures(buffer_x, magnitude_x, BUFFER_SIZE);
+        Features feat_y = extractFeatures(buffer_y, magnitude_y, BUFFER_SIZE);
+        Features feat_z = extractFeatures(buffer_z, magnitude_z, BUFFER_SIZE);
+        
+        // Création du vecteur de caractéristiques complet
+        float feature_vector[NUM_FEATURES];
+        int idx = 0;
+        
+        // Caractéristiques temporelles
+        feature_vector[idx++] = feat_x.rms;
+        feature_vector[idx++] = feat_y.rms;
+        feature_vector[idx++] = feat_z.rms;
+        feature_vector[idx++] = feat_x.crest_factor;
+        feature_vector[idx++] = feat_y.crest_factor;
+        feature_vector[idx++] = feat_z.crest_factor;
+        // ... autres caractéristiques
+        
+        // Détection d'anomalie
+        float confidence;
+        int is_anomaly = detectAnomaly(feature_vector, &confidence);
+        
+        unsigned long processing_time = micros() - start_time;
+        
+        // Gestion des alertes
+        if (is_anomaly) {
+            digitalWrite(LED_GREEN, LOW);
+            digitalWrite(LED_RED, HIGH);
+            
+            Serial.printf("ANOMALIE DÉTECTÉE! Confiance: %.2f\n", confidence);
+            Serial.printf("Temps de traitement: %lu µs\n", processing_time);
+            
+            // Envoi alerte MQTT
+            sendAlert(1, confidence);
+            
+            // Buzzer pattern
+            tone(BUZZER_PIN, 2000, 500);
+        } else {
+            digitalWrite(LED_RED, LOW);
+            digitalWrite(LED_GREEN, HIGH);
+            
+            Serial.printf("État normal. Temps: %lu µs\n", processing_time);
+        }
+        
+        // Reset buffer pour nouvelle acquisition
+        buffer_index = 0;
+    }
+    
+    // Maintenance connexion MQTT
+    if (!mqttClient.connected()) {
+        setupMQTT();
+    }
+    mqttClient.loop();
+}
+\end{lstlisting}

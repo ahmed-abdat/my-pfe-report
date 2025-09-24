@@ -1,0 +1,97 @@
+# LaTeX temporary files
+*.aux
+*.lof
+*.log
+*.lot
+*.fls
+*.out
+*.toc
+*.fmt
+*.fot
+*.cb
+*.cb2
+.*.lb
+*.bcf
+*.run.xml
+*.auxlock
+
+# Intermediate documents
+*.dvi
+*.xdv
+*-converted-to.*
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+# Bibliography auxiliary files
+*.bbl
+*.bcf
+*.blg
+*-blx.aux
+*-blx.bib
+*.run.xml
+
+# Build tool auxiliary files
+*.fdb_latexmk
+*.synctex
+*.synctex(busy)
+*.synctex.gz
+*.synctex.gz(busy)
+*.pdfsync
+*.auxlock
+
+# Output files
+*.pdf
+!images/**/*.pdf
+!rapport_pfe_abdat_ahmed.pdf
+
+# Minitoc auxiliary files
+*.mtc[0-9]*
+*.maf
+*.mlf
+*.mlt
+*.mtc
+*.slf[0-9]*
+*.slt[0-9]*
+*.stc[0-9]*
+
+# TikZ & PGF
+*.figlist
+*.makefile
+*.dpth
+*.md5
+*.auxlock
+
+# Editor files
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# IDE
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# System files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary folders
+tmp/
+temp/
+build/
+
+# Keep the final PDF
+!rapport_pfe_abdat_ahmed.pdf
