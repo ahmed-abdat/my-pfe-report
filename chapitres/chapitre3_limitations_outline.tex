@@ -1,0 +1,60 @@
+% =========================================================
+% CHAPITRE 3 - SECTION LIMITATIONS (OUTLINE)
+% =========================================================
+% À inclure dans le chapitre 3 (Réalisation et Validation)
+
+\section{Limitations de l'étude}
+
+Cette section présente de manière transparente les limitations de notre validation expérimentale, dans un souci de rigueur scientifique et pour orienter les travaux futurs.
+
+\subsection{Limitations du cadre expérimental}
+
+\begin{itemize}
+    \item \textbf{Environnement de laboratoire uniquement} : La validation a été réalisée exclusivement en laboratoire universitaire (FSB), dans des conditions contrôlées qui ne reflètent pas nécessairement la complexité d'un environnement industriel réel (vibrations parasites, variations de température, perturbations électromagnétiques).
+
+    \item \textbf{Moteur unique testé} : L'expérimentation s'est limitée à un seul type de moteur asynchrone (Leroy Somer 0,37\,kW), représentatif des équipements auxiliaires mais ne couvrant pas la diversité des machines industrielles.
+
+    \item \textbf{Gamme de puissance limitée} : Le moteur de 0,37\,kW testé se situe en dessous du seuil de 15\,kW spécifié par la norme ISO 20816-3:2022, limitant la généralisation aux équipements industriels de plus forte puissance.
+\end{itemize}
+
+\subsection{Limitations méthodologiques}
+
+\begin{itemize}
+    \item \textbf{Défauts simulés uniquement} : Les anomalies ont été introduites artificiellement (masses de déséquilibrage calibrées) plutôt que d'utiliser des défauts naturels évolutifs, ce qui peut affecter la représentativité des signatures vibratoires.
+
+    \item \textbf{Absence de tests longue durée} : L'évaluation s'est concentrée sur des sessions de test ponctuelles sans validation de la stabilité du système sur plusieurs mois d'exploitation continue.
+
+    \item \textbf{Conditions de charge constantes} : Les tests ont été effectués à charge et vitesse constantes, sans explorer les régimes transitoires ou les variations de charge typiques des applications industrielles.
+\end{itemize}
+
+\subsection{Limitations techniques}
+
+\begin{itemize}
+    \item \textbf{Plage fréquentielle restreinte} : L'ADXL345 limite l'analyse à 1,6\,kHz, insuffisant pour détecter certains défauts haute fréquence (engrenages, roulements à haute vitesse).
+
+    \item \textbf{Axe unique de mesure} : Bien que l'ADXL345 soit tri-axial, l'implémentation actuelle n'exploite qu'un seul axe, limitant la détection de défauts complexes multi-directionnels.
+
+    \item \textbf{Absence de référence industrielle} : Pas de comparaison directe avec des systèmes commerciaux certifiés pour valider la précision absolue des mesures.
+\end{itemize}
+
+\subsection{Limitations de déploiement}
+
+\begin{itemize}
+    \item \textbf{Validation PME non réalisée} : Aucun test en conditions réelles dans une PME industrielle pour confirmer l'accessibilité et l'utilisabilité revendiquées.
+
+    \item \textbf{Formation utilisateur non évaluée} : L'hypothèse d'une installation en 20 minutes par un technicien non-expert n'a pas été validée empiriquement.
+
+    \item \textbf{Évolutivité non testée} : La scalabilité du système pour surveiller plusieurs machines simultanément n'a pas été explorée.
+\end{itemize}
+
+\subsection{Implications pour les travaux futurs}
+
+Ces limitations définissent clairement le périmètre de validité de notre étude : une preuve de concept académique démontrant la faisabilité technique du TinyML pour la détection d'anomalies vibratoires. Les travaux futurs devront adresser ces limitations par :
+
+\begin{enumerate}
+    \item Des tests en environnement industriel réel avec défauts naturels
+    \item L'extension à une gamme plus large de moteurs (0,37 à 15\,kW)
+    \item Une validation longitudinale sur plusieurs mois
+    \item Des partenariats avec des PME pour valider l'accessibilité
+    \item L'amélioration du système pour l'analyse multi-axiale et haute fréquence
+\end{enumerate}

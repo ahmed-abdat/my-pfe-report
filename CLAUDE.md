@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a French Master's thesis (PFE - Projet de Fin d'Études) in LaTeX for the Master EEEA program at Faculté des Sciences de Bizerte. The thesis focuses on "Système de Détection d'Anomalies pour Moteurs Industriels basé sur l'Intelligence Artificielle Embarquée" - implementing TinyML on ESP32 for industrial motor anomaly detection.
+This is a French Master's thesis (PFE - Projet de Fin d'Études) in LaTeX for the Master EEA program at Faculté des Sciences de Bizerte. The thesis focuses on "Système de Détection d'Anomalies pour Moteurs Industriels basé sur l'Intelligence Artificielle Embarquée" - implementing TinyML on ESP32 for industrial motor anomaly detection.
 
 ## Build Commands
 

@@ -69,7 +69,7 @@
 \hypersetup{
     pdftitle={Système de Détection d'Anomalies pour Moteurs Industriels basé sur l'Intelligence Artificielle Embarquée},
     pdfauthor={Ahmed Abdellahi Abdat},
-    pdfsubject={Projet de Fin d'Études - Master EEEA - FSB},
+    pdfsubject={Projet de Fin d'Études - Master EEA - FSB},
     pdfkeywords={TinyML, Maintenance prédictive, ESP32, Détection d'anomalies, K-means}
 }
 
@@ -79,8 +79,8 @@
 \pgfplotsset{width=10cm,compat=1.9}
 
 % Définition des couleurs
-\definecolor{chapterColor}{RGB}{1,56,115}     % Bleu FSB
-\definecolor{sectionColor}{RGB}{70,130,180}   % Bleu clair
+\definecolor{chapterColor}{RGB}{0,0,0}     % Noir (cohérence académique)
+\definecolor{sectionColor}{RGB}{0,0,0}   % Noir (standard académique)
 \definecolor{tableRow1}{RGB}{210,234,241}     % Gris-bleu clair
 \definecolor{gray75}{gray}{0.75}
 \definecolor{Gris1}{RGB}{116,134,170}
@@ -101,7 +101,7 @@
   {\normalfont\huge\bfseries}%
   {}%
   {0pt}%
-  {\thispagestyle{empty}\vspace*{\fill}%
+  {\thispagestyle{plain}\vspace*{\fill}%
    \begin{center}%
      % Ligne supérieure décorative
      \textcolor{chapterColor}{\rule{0.5\textwidth}{2pt}}\\[2cm]%
@@ -141,7 +141,13 @@
 
 % Espacement des chapitres
 \titlespacing*{\chapter}{0pt}{0pt}{0pt}
-\titlespacing*{name=\chapter,numberless}{0pt}{50pt}{40pt}
+\titlespacing*{name=\chapter,numberless}{0pt}{50pt}{30pt}
+
+% Espacement des sections (conforme aux normes académiques)
+% Format: \titlespacing{command}{left}{before}{after}
+\titlespacing*{\section}{0pt}{3.5ex plus 1ex minus .2ex}{2.3ex plus .2ex}
+\titlespacing*{\subsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+\titlespacing*{\subsubsection}{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % STYLE DES SECTIONS ET SOUS-SECTIONS
@@ -209,9 +215,10 @@
 \setlist[itemize,3]{label=$\ast$}
 
 % Configuration de l'espacement des paragraphes
-\setlength{\parskip}{1ex}
-\setlength{\parindent}{0pt}
+\setlength{\parskip}{1.5ex plus 0.5ex minus 0.2ex}  % Espace flexible entre paragraphes (5-7mm)
+\setlength{\parindent}{0pt}  % Pas d'indentation (standard français moderne)
 \frenchspacing  % Espacement français correct
+\raggedbottom  % Évite l'étirement vertical des pages
 \renewcommand\bibname{Bibliographie}
 \newcommand{\HRule}[1][\linewidth]{\rule{#1}{0.5mm}}
 \renewcommand{\arraystretch}{1.3}
@@ -232,21 +239,24 @@
   \renewcommand{\headrulewidth}{0.5pt}
   \renewcommand{\footrulewidth}{0.5pt}
   \fancyhf{}
-  \fancyhead[L]{\fontsize{11}{11}\selectfont\nouppercase{\leftmark}}
-  \fancyhead[R]{\fontsize{11}{11}\selectfont\nouppercase{\rightmark}}
-  \fancyfoot[L]{\fontsize{10}{10}\selectfont FSB - Master EEEA}
-  \fancyfoot[C]{\fontsize{10}{10}\selectfont 2024-2025}
-  \fancyfoot[R]{\fontsize{10}{10}\selectfont Page \thepage}
+  \fancyhead[C]{\fontsize{11}{11}\selectfont\nouppercase{\leftmark}}
+  \fancyfoot[L]{\fontsize{10}{10}\selectfont FSB - Master EEA}
+  \fancyfoot[C]{\fontsize{10}{10}\selectfont Page \thepage}
+  \fancyfoot[R]{\fontsize{10}{10}\selectfont 2024-2025}
 }
 
 \fancypagestyle{plain}{
   \renewcommand{\headrulewidth}{0pt}
   \renewcommand{\footrulewidth}{0.5pt}
   \fancyhf{}
-  \fancyfoot[L]{\fontsize{10}{10}\selectfont FSB - Master EEEA}
+  \fancyfoot[L]{\fontsize{10}{10}\selectfont FSB - Master EEA}
   \fancyfoot[C]{\fontsize{10}{10}\selectfont Page \thepage}
   \fancyfoot[R]{\fontsize{10}{10}\selectfont 2024-2025}
 }
+
+% Configuration pour n'afficher que les chapitres dans les en-têtes (sans les sections)
+\renewcommand{\chaptermark}[1]{\markboth{\chaptername\ \thechapter.\ #1}{}}
+\renewcommand{\sectionmark}[1]{} % Désactiver les sections dans les en-têtes
 
 % Commande pour page blanche
 \newcommand\blankpage{%
@@ -379,22 +389,22 @@ Enfin, nous remercions toute personne, de près ou de loin, qui a contribué à 
 \thispagestyle{plain}
 
 \begin{spacing}{1.3}
-Ce projet présente le développement d'un système de détection d'anomalies pour moteurs industriels basé sur l'intelligence artificielle embarquée. L'approche proposée utilise le TinyML sur microcontrôleur ESP32 pour permettre une maintenance prédictive accessible aux PME industrielles. Le système utilise l'apprentissage non-supervisé (K-means) nécessitant uniquement des données de fonctionnement normal pour l'entraînement, éliminant ainsi le besoin de créer des défauts réels. La solution complète, d'un coût inférieur à 50€, offre une détection en temps réel avec une latence inférieure à 10ms et une autonomie totale sans dépendance cloud. Les tests réalisés au laboratoire FSB sur un moteur Leroy Somer démontrent une précision supérieure à 90\% dans la détection d'anomalies vibratoires. Ce travail représente une innovation significative en démocratisant l'accès à la maintenance prédictive pour les entreprises exclues des solutions commerciales actuelles.\\[0.5cm]
+Ce projet présente le développement d'un système de détection d'anomalies pour moteurs asynchrones triphasés basé sur l'intelligence artificielle embarquée (TinyML). L'approche proposée explore le potentiel du TinyML pour rendre la maintenance prédictive plus accessible aux PME industrielles, utilisant l'apprentissage non-supervisé (K-means) nécessitant uniquement des données de fonctionnement normal. Le prototype développé, d'un coût inférieur à 50€, vise une détection en temps réel avec une latence d'inférence inférieure à 10ms et une autonomie totale sans dépendance cloud. Les tests réalisés sur un moteur asynchrone triphasé (0,37 kW) au laboratoire universitaire FSB montrent une précision supérieure à 90\% dans la détection d'anomalies vibratoires simulées (résultats détaillés au Chapitre 3). Ce travail de recherche explore la faisabilité technique d'une approche TinyML pour la maintenance prédictive, une validation en conditions industrielles réelles étant nécessaire pour confirmer son applicabilité pratique.\\[0.5cm]
 \end{spacing}
 
 \vspace{0.5cm}
-\noindent\textbf{Mots-clés :} TinyML, Maintenance prédictive, ESP32, Détection d'anomalies, K-means, Analyse vibratoire, Industry 4.0, Edge Computing
+\noindent\textbf{Mots-clés :} TinyML, Maintenance prédictive, Microcontrôleur embarqué, Détection d'anomalies, K-means, Analyse vibratoire, Industry 4.0, Edge Computing
 
 \chapter*{ABSTRACT}
 \addcontentsline{toc}{chapter}{Abstract}
 \thispagestyle{plain}
 
 \begin{spacing}{1.3}
-This project presents the development of an anomaly detection system for industrial motors based on embedded artificial intelligence. The proposed approach uses TinyML on ESP32 microcontroller to enable predictive maintenance accessible to industrial SMEs. The system employs unsupervised learning (K-means) requiring only normal operating data for training, thus eliminating the need to create real faults. The complete solution, costing less than €50, offers real-time detection with latency below 10ms and complete autonomy without cloud dependency. Tests conducted at the FSB laboratory on a Leroy Somer motor demonstrate accuracy exceeding 90\% in vibration anomaly detection. This work represents a significant innovation by democratizing access to predictive maintenance for companies excluded from current commercial solutions.\\[0.5cm]
+This project presents the development of an anomaly detection system for three-phase asynchronous motors based on embedded artificial intelligence (TinyML). The proposed approach explores the potential of TinyML to make predictive maintenance more accessible to industrial SMEs, employing unsupervised learning (K-means) requiring only normal operating data. The developed prototype, costing less than €50, targets real-time detection with inference latency below 10ms and complete autonomy without cloud dependency. Tests conducted at the FSB university laboratory on a three-phase asynchronous motor (0.37 kW) show accuracy exceeding 90\% in detecting simulated vibration anomalies (detailed results in Chapter 3). This research work explores the technical feasibility of a TinyML approach for predictive maintenance, with validation under real industrial conditions necessary to confirm its practical applicability.\\[0.5cm]
 \end{spacing}
 
 \vspace{0.5cm}
-\noindent\textbf{Keywords:} TinyML, Predictive maintenance, ESP32, Anomaly detection, K-means, Vibration analysis, Industry 4.0, Edge Computing
+\noindent\textbf{Keywords:} TinyML, Predictive maintenance, Embedded microcontroller, Anomaly detection, K-means, Vibration analysis, Industry 4.0, Edge Computing
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % TABLE DES MATIÈRES
@@ -432,6 +442,8 @@ This project presents the development of an anomaly detection system for industr
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \cleardoublepage
 \mainmatter  % Passage à la numérotation arabe
+\pagenumbering{arabic}  % Explicitly start Arabic numbering
+\setcounter{page}{1}    % Start from page 1
 
 \input{chapitres/introduction}
 

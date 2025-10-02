@@ -1,0 +1,74 @@
+% Enhanced Chapter Styling inspired by best practices
+% This file defines beautiful chapter headers with visual impact
+
+\usepackage{titlesec}
+\usepackage{tikz}
+
+% Define FSB Blue color
+\definecolor{fsbblue}{HTML}{013875}
+
+% Custom chapter format with colored box
+\newlength\ChapterBoxWd
+\setlength\ChapterBoxWd{15mm}
+
+\titleformat{\chapter}[display]%
+  {\normalfont\huge\bfseries}%
+  {}%
+  {0pt}%
+  {%
+    \begin{tikzpicture}[remember picture,overlay]
+      % Background decoration
+      \node[anchor=north west,inner sep=0pt] at ([xshift=2cm,yshift=-2cm]current page.north west) {%
+        \begin{tikzpicture}
+          % Chapter number box
+          \fill[fsbblue] (0,0) rectangle (1.5,1.5);
+          \node[text=white,font=\fontsize{40}{48}\selectfont\bfseries] at (0.75,0.75) {\thechapter};
+          % Decorative line
+          \draw[fsbblue,line width=2pt] (2,0.75) -- (12,0.75);
+        \end{tikzpicture}
+      };
+      % Chapter title
+      \node[anchor=north west,inner sep=0pt,text width=14cm] at ([xshift=2cm,yshift=-4.5cm]current page.north west) {%
+        \fontsize{24}{28}\selectfont\color{fsbblue}#1%
+      };
+    \end{tikzpicture}
+    \vspace{3cm}
+  }
+
+% Format for unnumbered chapters
+\titleformat{name=\chapter,numberless}[display]%
+  {\normalfont\huge\bfseries}%
+  {}%
+  {0pt}%
+  {%
+    \begin{tikzpicture}[remember picture,overlay]
+      % Decorative line for unnumbered chapters
+      \node[anchor=north west,inner sep=0pt] at ([xshift=2cm,yshift=-2cm]current page.north west) {%
+        \draw[fsbblue,line width=2pt] (0,0) -- (12,0);
+      };
+      % Chapter title
+      \node[anchor=north west,inner sep=0pt,text width=14cm] at ([xshift=2cm,yshift=-3.5cm]current page.north west) {%
+        \fontsize{24}{28}\selectfont\color{fsbblue}#1%
+      };
+    \end{tikzpicture}
+    \vspace{2cm}
+  }
+
+% Adjust chapter spacing
+\titlespacing*{\chapter}{0pt}{0pt}{30pt}
+
+% Section formatting to match
+\titleformat{\section}
+  {\normalfont\Large\bfseries\color{fsbblue}}
+  {\thesection}{1em}{}
+
+\titleformat{\subsection}
+  {\normalfont\large\bfseries}
+  {\thesubsection}{1em}{}
+
+% Add mini table of contents for chapters (optional)
+\usepackage{minitoc}
+\setcounter{minitocdepth}{2}
+\mtcindent=15pt
+\mtcsetfont{minitoc}{section}{\small\rmfamily\upshape\mdseries}
+\mtcsetfont{minitoc}{subsection}{\small\rmfamily\upshape\mdseries}

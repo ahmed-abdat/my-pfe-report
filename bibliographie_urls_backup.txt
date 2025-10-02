@@ -1,0 +1,55 @@
+================================================================
+BACKUP DES URLS - BIBLIOGRAPHIE PFE
+================================================================
+Ce fichier contient toutes les URLs de la bibliographie pour référence future.
+Les URLs ont été retirées du fichier .bib principal pour conformité aux normes académiques.
+================================================================
+
+NORMES ET STANDARDS
+-------------------
+[en13306] https://standards.iteh.ai/catalog/standards/cen/5af77559-ca38-483a-9310-823e8c517ee7/en-13306-2017
+[iso17359] https://www.iso.org/standard/71194.html
+[iso20816-1] https://www.iso.org/standard/63180.html
+[iso20816-3] https://www.iso.org/standard/78311.html
+
+ARTICLES FONDAMENTAUX
+---------------------
+[cooley1965] https://www.ams.org/journals/mcom/1965-19-090/S0025-5718-1965-0178586-1/S0025-5718-1965-0178586-1.pdf
+
+TINYML ET IA EMBARQUÉE
+----------------------
+[banbury2021] https://datasets-benchmarks-proceedings.neurips.cc/paper/2021/file/da4fb5c6e93e74d3df8527599fa62642-Paper-round1.pdf
+
+IMPLÉMENTATION ESP32
+--------------------
+[katib2025] https://www.sciencedirect.com/science/article/pii/S209044792500022X
+
+RAPPORTS INDUSTRIELS
+--------------------
+[siemens2024] https://assets.new.siemens.com/siemens/assets/api/uuid:1b43afb5-2d07-47f7-9eb7-893fe7d0bc59/TCOD-2024_original.pdf
+
+TINYML ET MAINTENANCE PRÉDICTIVE
+---------------------------------
+[njor2024] https://orbit.dtu.dk/files/383607666/A_Holistic_Review_of_the_TinyML_Stack_for_Predictive_Maintenance.pdf
+[ran2019] https://arxiv.org/abs/1912.07383
+[jemmali2021] https://espace.etsmtl.ca/id/eprint/2894/
+
+OUTILS ET PLATEFORMES
+--------------------
+[edgeimpulse2024] https://docs.edgeimpulse.com/solutions/predictive-maintenance
+
+DOCUMENTATION TECHNIQUE MATÉRIEL
+---------------------------------
+[adxl345] https://www.analog.com/media/en/technical-documentation/data-sheets/ADXL345.pdf
+[esp32] https://www.espressif.com/sites/default/files/documentation/esp32-wroom-32_datasheet_en.pdf
+
+DATASETS DE RÉFÉRENCE
+---------------------
+[cwru2024] https://engineering.case.edu/bearingdatacenter
+
+================================================================
+NOTES IMPORTANTES:
+- Ces URLs étaient présentes dans bibliographie.bib mais ont été retirées pour la version finale
+- Conserver ce fichier pour pouvoir retrouver les sources en ligne si nécessaire
+- Pour réintégrer les URLs, copier les lignes "url = {...}" dans le fichier .bib
+================================================================

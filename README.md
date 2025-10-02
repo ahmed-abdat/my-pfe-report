@@ -1,6 +1,6 @@
 # Système de Détection d'Anomalies pour Moteurs Industriels basé sur l'IA Embarquée
 
-## 📚 Projet de Fin d'Études - Master EEEA
+## 📚 Projet de Fin d'Études - Master EEA
 
 **Auteur:** Ahmed Abdellahi ABDAT
 **Encadrant:** Dr. Khalil JOUILI
@@ -142,7 +142,7 @@ Contributions, limitations et perspectives futures.
 
 - **Dr. Khalil JOUILI** - Encadrement et conseils techniques
 - **Laboratoire FSB** - Accès aux équipements de test
-- **Équipe pédagogique Master EEEA** - Support académique
+- **Équipe pédagogique Master EEA** - Support académique
 
 ## 📄 Licence
 
@@ -156,4 +156,4 @@ LinkedIn: [votre-profil-linkedin]
 
 ---
 
-*Mémoire de Projet de Fin d'Études - Master EEEA - FSB 2024-2025*
+*Mémoire de Projet de Fin d'Études - Master EEA - FSB 2024-2025*

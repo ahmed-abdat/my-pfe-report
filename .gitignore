@@ -95,3 +95,7 @@ build/
 
 # Keep the final PDF
 !rapport_pfe_abdat_ahmed.pdf
+
+# Large binary files in pfe-context
+pfe-context/*.pdf
+pfe-context/*.docx

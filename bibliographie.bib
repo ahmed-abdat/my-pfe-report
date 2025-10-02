@@ -1,302 +1,450 @@
-% Normes
+% =========================================================
+% BIBLIOGRAPHIE - PFE MASTER EEEA
+% Système de Détection d'Anomalies basé sur TinyML
+% =========================================================
+% Total: 38 références vérifiées et validées
+% Format: BibTeX standard avec conventions LaTeX
+% =========================================================
+
+% =========================================================
+% NORMES ET STANDARDS
+% =========================================================
+
 @standard{en13306,
-  title={EN 13306:2017 — Maintenance — Maintenance terminology},
-  organization={European Committee for Standardization},
-  year={2017},
-  note={Available: https://standards.cencenelec.eu}
+  title        = {{EN 13306:2017 --- Maintenance --- Maintenance terminology}},
+  organization = {European Committee for Standardization},
+  year         = {2017},
+  address      = {Brussels, Belgium},
 }
 
 @standard{iso17359,
-  title={ISO 17359:2018 — Condition monitoring and diagnostics of machines — General guidelines},
-  organization={International Organization for Standardization},
-  year={2018},
-  note={Available: https://www.iso.org/standard/71194.html}
+  title        = {{ISO 17359:2018 --- Condition monitoring and diagnostics of machines --- General guidelines}},
+  organization = {International Organization for Standardization},
+  year         = {2018},
+  address      = {Geneva, Switzerland},
 }
 
 @standard{iso20816-1,
-  title={ISO 20816-1:2016 — Mechanical vibration — Measurement and evaluation of machine vibration — Part 1: General guidelines},
-  organization={International Organization for Standardization},
-  year={2016},
-  note={Available: https://www.iso.org/standard/63180.html}
+  title        = {{ISO 20816-1:2016 --- Mechanical vibration --- Measurement and evaluation of machine vibration --- Part 1: General guidelines}},
+  organization = {International Organization for Standardization},
+  year         = {2016},
+  address      = {Geneva, Switzerland},
 }
 
 @standard{iso20816-3,
-  title={ISO 20816-3:2022 — Mechanical vibration — Measurement and evaluation of machine vibration — Part 3: Industrial machinery},
-  organization={International Organization for Standardization},
-  year={2022},
-  note={Available: https://www.iso.org/standard/78311.html}
+  title        = {{ISO 20816-3:2022 --- Mechanical vibration --- Measurement and evaluation of machine vibration --- Part 3: Industrial machinery with power rating above 15 kW}},
+  organization = {International Organization for Standardization},
+  year         = {2022},
+  address      = {Geneva, Switzerland},
 }
 
-% Articles de référence
+% =========================================================
+% ARTICLES FONDAMENTAUX
+% =========================================================
+
 @article{jardine2006,
-  title={A review on machinery diagnostics and prognostics implementing condition-based maintenance},
-  author={Jardine, A. K. S. and Lin, D. and Banjevic, D.},
-  journal={Mechanical Systems and Signal Processing},
-  volume={20},
-  number={7},
-  pages={1483--1510},
-  year={2006},
-  doi={10.1016/j.ymssp.2005.09.012}
+  author  = {Jardine, Andrew K. S. and Lin, Daming and Banjevic, Dragan},
+  title   = {A review on machinery diagnostics and prognostics implementing condition-based maintenance},
+  journal = {Mechanical Systems and Signal Processing},
+  volume  = {20},
+  number  = {7},
+  pages   = {1483--1510},
+  year    = {2006},
+  doi     = {10.1016/j.ymssp.2005.09.012}
 }
 
 @article{lee2014,
-  title={Prognostics and health management design for rotary machinery systems—Reviews, methodology and applications},
-  author={Lee, J. and Wu, F. and Zhao, W. and Ghaffari, M. and Liao, L. and Siegel, D.},
-  journal={Mechanical Systems and Signal Processing},
-  volume={42},
-  number={1–2},
-  pages={314--334},
-  year={2014},
-  doi={10.1016/j.ymssp.2013.06.004}
+  author  = {Lee, Jay and Wu, Fangji and Zhao, Wenyu and Ghaffari, Masoud and Liao, Linxia and Siegel, David},
+  title   = {Prognostics and health management design for rotary machinery systems---{R}eviews, methodology and applications},
+  journal = {Mechanical Systems and Signal Processing},
+  volume  = {42},
+  number  = {1--2},
+  pages   = {314--334},
+  year    = {2014},
+  doi     = {10.1016/j.ymssp.2013.06.004}
 }
 
-@book{mobley2002,
-  title={An Introduction to Predictive Maintenance},
-  author={Mobley, R. K.},
-  edition={2nd},
-  publisher={Butterworth-Heinemann/Elsevier},
-  address={Burlington, MA, USA},
-  year={2002}
+@article{chandola2009,
+  author  = {Chandola, Varun and Banerjee, Arindam and Kumar, Vipin},
+  title   = {Anomaly detection: {A} survey},
+  journal = {ACM Computing Surveys},
+  volume  = {41},
+  number  = {3},
+  pages   = {15:1--15:58},
+  year    = {2009},
+  doi     = {10.1145/1541880.1541882}
 }
 
-% Industry 4.0
-@article{lasi2014,
-  title={Industry 4.0},
-  author={Lasi, H. and Fettke, P. and Kemper, H.-G. and Feld, T. and Hoffmann, M.},
-  journal={Business \& Information Systems Engineering},
-  volume={6},
-  number={4},
-  pages={239--242},
-  year={2014},
-  doi={10.1007/s12599-014-0334-4}
-}
+% =========================================================
+% ALGORITHMES FONDAMENTAUX
+% =========================================================
 
-@techreport{kagermann2013,
-  title={Recommendations for Implementing the Strategic Initiative INDUSTRIE 4.0 — Final Report of the Industrie 4.0 Working Group},
-  author={Kagermann, H. and Wahlster, W. and Helbig, J.},
-  institution={acatech},
-  year={2013},
-  note={Available: https://en.acatech.de/publication/recommendations-for-implementing-the-strategic-initiative-industrie-4-0-final-report-of-the-industrie-4-0-working-group/}
-}
-
-@article{shi2016,
-  title={Edge computing: Vision and challenges},
-  author={Shi, W. and Cao, J. and Zhang, Q. and Li, Y. and Xu, L.},
-  journal={IEEE Internet of Things Journal},
-  volume={3},
-  number={5},
-  pages={637--646},
-  year={2016},
-  doi={10.1109/JIOT.2016.2579198}
-}
-
-% Vibration analysis
-@article{tiboni2022,
-  title={A review on vibration-based condition monitoring of rotating machinery},
-  author={Tiboni, M. and Remino, C. and Bussola, R. and Amici, C.},
-  journal={Applied Sciences},
-  volume={12},
-  number={3},
-  pages={972},
-  year={2022},
-  doi={10.3390/app12030972}
-}
-
-@techreport{bkvibro2002,
-  title={Detecting Faulty Rolling Element Bearings},
-  author={{B\&K Vibro}},
-  institution={Brüel \& Kjær Vibro},
-  year={2002},
-  note={Application Note}
+@inproceedings{macqueen1967,
+  author    = {MacQueen, James B.},
+  title     = {Some methods for classification and analysis of multivariate observations},
+  booktitle = {Proceedings of the 5th Berkeley Symposium on Mathematical Statistics and Probability},
+  volume    = {1},
+  pages     = {281--297},
+  year      = {1967},
+  publisher = {University of California Press},
+  address   = {Berkeley, CA, USA}
 }
 
 @article{cooley1965,
-  title={An algorithm for the machine calculation of complex Fourier series},
-  author={Cooley, J. W. and Tukey, J. W.},
-  journal={Mathematics of Computation},
-  volume={19},
-  number={90},
-  pages={297--301},
-  year={1965},
-  doi={10.1090/S0025-5718-1965-0178586-1}
+  author  = {Cooley, James W. and Tukey, John W.},
+  title   = {An algorithm for the machine calculation of complex {F}ourier series},
+  journal = {Mathematics of Computation},
+  volume  = {19},
+  number  = {90},
+  pages   = {297--301},
+  year    = {1965},
+  doi     = {10.1090/S0025-5718-1965-0178586-1},
 }
 
-@book{oppenheim2010,
-  title={Discrete-Time Signal Processing},
-  author={Oppenheim, A. V. and Schafer, R. W.},
-  edition={3rd},
-  publisher={Prentice Hall},
-  address={Upper Saddle River, NJ, USA},
-  year={2010}
+% =========================================================
+% ARTICLES RÉCENTS 2024-2025
+% =========================================================
+
+@article{hassan2024,
+  author    = {Hassan, Ietezaz Ul and Panduru, Krishna and Walsh, Joseph},
+  title     = {An in-depth study of vibration sensors for condition monitoring},
+  journal   = {Sensors},
+  volume    = {24},
+  number    = {3},
+  pages     = {740},
+  year      = {2024},
+  publisher = {MDPI},
+  doi       = {10.3390/s24030740}
 }
 
-% Anomaly detection
-@article{chandola2009,
-  title={Anomaly detection: A survey},
-  author={Chandola, V. and Banerjee, A. and Kumar, V.},
-  journal={ACM Computing Surveys},
-  volume={41},
-  number={3},
-  pages={1--58},
-  year={2009},
-  doi={10.1145/1541880.1541882}
-}
-
-@inproceedings{macqueen1967,
-  title={Some methods for classification and analysis of multivariate observations},
-  author={MacQueen, J. B.},
-  booktitle={Proceedings of the 5th Berkeley Symposium on Mathematical Statistics and Probability},
-  pages={281--297},
-  year={1967}
-}
-
-% TinyML
-@book{warden2019,
-  title={TinyML: Machine Learning with TensorFlow Lite on Arduino and Ultra-Low-Power Microcontrollers},
-  author={Warden, P. and Situnayake, D.},
-  publisher={O'Reilly Media},
-  address={Sebastopol, CA, USA},
-  year={2019}
-}
-
-@inproceedings{david2021,
-  title={TensorFlow Lite Micro: Embedded machine learning on TinyML systems},
-  author={David, R. and others},
-  booktitle={Proceedings of Machine Learning and Systems (MLSys)},
-  volume={3},
-  pages={800--811},
-  year={2021}
-}
-
-@article{banbury2021,
-  title={MLPerf Tiny Benchmark},
-  author={Banbury, C. and others},
-  journal={NeurIPS Datasets and Benchmarks},
-  year={2021},
-  doi={10.48550/arXiv.2106.07597}
-}
-
-@article{reddi2022,
-  title={TinyML: Widening access to machine learning by bringing deep learning to the edge},
-  author={Reddi, V. J. and Kennedy, S. and Moroney, L. and Warden, P. and Agarwal, A.},
-  journal={Harvard Data Science Review},
-  volume={4},
-  number={1},
-  year={2022},
-  doi={10.1162/99608f92.3e92f91f}
-}
-
-% Recent reviews
-@article{hector2024,
-  title={Predictive maintenance in Industry 4.0: a survey of planning models and machine learning techniques},
-  author={Hector, I. and Panjanathan, R.},
-  journal={PeerJ Computer Science},
-  volume={10},
-  pages={e2016},
-  year={2024},
-  doi={10.7717/peerj-cs.2016}
-}
-
-@article{achouch2022,
-  title={On Predictive Maintenance in Industry 4.0: Overview, Concepts and Challenges},
-  author={Achouch, M. and Berrichi, L. and Benhadou, N.},
-  journal={Applied Sciences},
-  volume={12},
-  number={16},
-  pages={8081},
-  year={2022},
-  doi={10.3390/app12168081}
-}
-
-@article{tsoukas2024,
-  title={A Review on the Emerging Technology of TinyML},
-  author={Tsoukas, V. and Gkogkidis, A. and Boumpa, E. and Kakarountas, A.},
-  journal={ACM Computing Surveys},
-  volume={56},
-  number={10},
-  pages={259},
-  year={2024},
-  doi={10.1145/3661820}
-}
-
-@article{kong2022,
-  title={Edge-Computing-Driven Internet of Things: A Survey},
-  author={Kong, L. and Zheng, Z. and Wu, J. and others},
-  journal={ACM Computing Surveys},
-  volume={55},
-  number={8},
-  pages={174},
-  year={2022},
-  doi={10.1145/3555308}
+@article{bagri2024,
+  author    = {Bagri, Ikram and Tahiry, Karim and Hraiba, Aziz and Touil, Achraf and Mousrij, Ahmed},
+  title     = {Vibration signal analysis for intelligent rotating machinery diagnosis and prognosis: {A} comprehensive systematic literature review},
+  journal   = {Vibration},
+  volume    = {7},
+  number    = {4},
+  pages     = {1013--1062},
+  year      = {2024},
+  publisher = {MDPI},
+  doi       = {10.3390/vibration7040054}
 }
 
 @article{matania2024,
-  title={Signal Processing for the Condition-Based Maintenance of Rotating Machines via Vibration Analysis: A Tutorial},
-  author={Matania, O. and Bachar, L. and Bechhoefer, E. and Bortman, J.},
-  journal={Sensors},
-  volume={24},
-  number={2},
-  pages={454},
-  year={2024},
-  doi={10.3390/s24020454}
+  author  = {Matania, Omri and Bachar, Lior and Bechhoefer, Eric and Bortman, Jacob},
+  title   = {Signal processing for the condition-based maintenance of rotating machines via vibration analysis: {A} tutorial},
+  journal = {Sensors},
+  volume  = {24},
+  number  = {2},
+  pages   = {454},
+  year    = {2024},
+  doi     = {10.3390/s24020454}
 }
 
-@article{hassan2024,
-  title={An In-Depth Study of Vibration Sensors for Condition Monitoring},
-  author={Hassan, I. U. and Panduru, K. and Walsh, J.},
-  journal={Sensors},
-  volume={24},
-  number={3},
-  pages={740},
-  year={2024},
-  doi={10.3390/s24030740}
-}
 
 @article{arciniegas2025,
-  title={IoT device for detecting abnormal vibrations in motors using TinyML},
-  author={Arciniegas, S. and Rivero, D. and Piñan, J. and Diaz, E. and Rivas, F.},
-  journal={Discover Internet of Things},
-  volume={5},
-  pages={41},
-  year={2025},
-  doi={10.1007/s43926-025-00142-4}
+  author  = {Arciniegas, Santiago and Rivero, Diego and Pi{\~n}an, Juan and Diaz, Eduardo and Rivas, Fernando},
+  title   = {{IoT} device for detecting abnormal vibrations in motors using {TinyML}},
+  journal = {Discover Internet of Things},
+  volume  = {5},
+  pages   = {41},
+  year    = {2025},
+  doi     = {10.1007/s43926-025-00142-4}
 }
 
-% Industry reports
-@techreport{mckinsey2017,
-  title={Manufacturing: Analytics unleashes productivity and profitability},
-  author={{McKinsey \& Company}},
-  year={2017},
-  month={August},
-  note={Available: https://www.mckinsey.com/capabilities/operations/our-insights/manufacturing-analytics-unleashes-productivity-and-profitability}
+@misc{langer2025,
+  author       = {Langer, Tim and Widra, Matthias and Beyer, Volkhard},
+  title        = {{TinyML} towards {I}ndustry 4.0: {R}esource-efficient process monitoring of a milling machine},
+  year         = {2025},
+  month        = aug,
+  archivePrefix= {arXiv},
+  eprint       = {2508.16553},
+  primaryClass = {cs.LG},
+  note         = {arXiv preprint}
 }
+
+% =========================================================
+% TINYML ET IA EMBARQUÉE
+% =========================================================
+
+@inproceedings{david2021,
+  author    = {David, Robert and Duke, Jared and Jain, Advait and Reddi, Vijay Janapa and Jeffries, Nat and Li, Jian and Kreeger, Nick and Nappier, Ian and Natraj, Meghna and Regev, Shlomi and Rhodes, Rocky and Wang, Tiezhen and Warden, Pete},
+  title     = {{TensorFlow Lite Micro}: {E}mbedded machine learning on {TinyML} systems},
+  booktitle = {Proceedings of Machine Learning and Systems (MLSys)},
+  volume    = {3},
+  pages     = {800--811},
+  year      = {2021}
+}
+
+@inproceedings{banbury2021,
+  author    = {Banbury, Colby and Reddi, Vijay Janapa and Torelli, Peter and Holleman, Jeremy and Jeffries, Nat and Kiraly, Csaba and Montino, Pietro and Kanter, David and Ahmed, Sebastian and Pau, Danilo and others},
+  title     = {{MLPerf Tiny} benchmark},
+  booktitle = {Proceedings of the Neural Information Processing Systems Track on Datasets and Benchmarks},
+  volume    = {1},
+  year      = {2021},
+  note      = {Also available at arXiv:2106.07597}
+}
+
+@article{reddi2022,
+  author  = {Reddi, Vijay Janapa and Plancher, Brian and Kennedy, Susan and Moroney, Laurence and Warden, Pete and Agarwal, Anant and Banbury, Colby and Banzi, Massimo and Bennett, Matthew and Brown, Benjamin and others},
+  title   = {Widening access to applied machine learning with {TinyML}},
+  journal = {Harvard Data Science Review},
+  volume  = {4},
+  number  = {1},
+  year    = {2022},
+  doi     = {10.1162/99608f92.3f92df99}
+}
+
+@book{warden2020,
+  author    = {Warden, Pete and Situnayake, Daniel},
+  title     = {{TinyML}: {M}achine Learning with {TensorFlow Lite} on {Arduino} and Ultra-Low-Power Microcontrollers},
+  publisher = {O'Reilly Media},
+  address   = {Sebastopol, CA, USA},
+  year      = {2020},
+  edition   = {1st},
+  isbn      = {978-1492052043}
+}
+
+% =========================================================
+% REVUES RÉCENTES 2022-2024
+% =========================================================
+
+@article{hector2024,
+  author  = {Hector, Isaac and Panjanathan, Raj},
+  title   = {Predictive maintenance in {I}ndustry 4.0: {A} survey of planning models and machine learning techniques},
+  journal = {PeerJ Computer Science},
+  volume  = {10},
+  pages   = {e2016},
+  year    = {2024},
+  doi     = {10.7717/peerj-cs.2016}
+}
+
+@article{achouch2022,
+  author  = {Achouch, Marwa and Dimitrova, Mariya and Ziane, Kenza and {Sattarpanah Karganroudi}, Souheil and Dhouib, Ridha and Ibrahim, Hussein and Adda, Mehdi},
+  title   = {On predictive maintenance in {I}ndustry 4.0: {O}verview, models, and challenges},
+  journal = {Applied Sciences},
+  volume  = {12},
+  number  = {16},
+  pages   = {8081},
+  year    = {2022},
+  doi     = {10.3390/app12168081}
+}
+
+@article{tiboni2022,
+  author  = {Tiboni, Monica and Remino, Carlo and Bussola, Roberto and Amici, Cinzia},
+  title   = {A review on vibration-based condition monitoring of rotating machinery},
+  journal = {Applied Sciences},
+  volume  = {12},
+  number  = {3},
+  pages   = {972},
+  year    = {2022},
+  doi     = {10.3390/app12030972}
+}
+
+@article{tsoukas2024,
+  author  = {Tsoukas, Vasileios and Gkogkidis, Apostolos and Boumpa, Eleni and Kakarountas, Athanasios},
+  title   = {A review on the emerging technology of {TinyML}},
+  journal = {ACM Computing Surveys},
+  volume  = {56},
+  number  = {10},
+  pages   = {259:1--259:37},
+  year    = {2024},
+  doi     = {10.1145/3661820}
+}
+
+@article{kong2022,
+  author  = {Kong, Linghe and Zheng, Ziwei and Wu, Jintao and Chen, Shaodong and Yang, Peng and Chen, Yuhao},
+  title   = {Edge-computing-driven {I}nternet of {T}hings: {A} survey},
+  journal = {ACM Computing Surveys},
+  volume  = {55},
+  number  = {8},
+  pages   = {174:1--174:41},
+  year    = {2022},
+  doi     = {10.1145/3555308}
+}
+
+% =========================================================
+% IMPLÉMENTATION ESP32
+% =========================================================
+
+@article{antonini2023,
+  author  = {Antonini, Mattia and Pincheira, Miguel and Vecchio, Massimo and Antonelli, Fabio},
+  title   = {An adaptable and unsupervised {TinyML} anomaly detection system for extreme industrial environments},
+  journal = {Sensors},
+  volume  = {23},
+  number  = {4},
+  pages   = {2344},
+  year    = {2023},
+  doi     = {10.3390/s23042344},
+  note    = {Isolation Forest on ESP32\_WROVER\_IE (4 MB SPIRAM), <16ms latency, 84KB RAM usage}
+}
+
+@article{katib2025,
+  author  = {Katib, Iyad and Albassam, Emad and Sharaf, Sanaa A. and Ragab, Mahmoud},
+  title   = {Safeguarding {IoT} consumer devices: {D}eep learning with {TinyML} driven real-time anomaly detection for predictive maintenance},
+  journal = {Ain Shams Engineering Journal},
+  volume  = {16},
+  number  = {2},
+  pages   = {103281},
+  year    = {2025},
+  doi     = {10.1016/j.asej.2025.103281},
+  note    = {Real-time anomaly detection on edge devices using deep learning}
+}
+
+% =========================================================
+% RAPPORTS INDUSTRIELS
+% =========================================================
 
 @techreport{mckinsey2021,
-  title={Establishing the right analytics-based maintenance strategy},
-  author={{McKinsey \& Company}},
-  year={2021},
-  month={July},
-  note={Available: https://www.mckinsey.com/capabilities/operations/our-insights/establishing-the-right-analytics-based-maintenance-strategy}
+  author      = {{McKinsey \& Company}},
+  title       = {Establishing the right analytics-based maintenance strategy},
+  institution = {McKinsey Global Institute},
+  year        = {2021},
+  month       = jul
 }
 
 @techreport{siemens2024,
-  title={The True Cost of Downtime 2024},
-  author={{Siemens (Senseye)}},
-  year={2024},
-  note={Available: https://assets.new.siemens.com/siemens/assets/api/uuid:1b43afb5-2d07-47f7-9eb7-893fe7d0bc59/TCOD-2024\_original.pdf}
+  author      = {{Siemens (Senseye)}},
+  title       = {The True Cost of Downtime 2024},
+  institution = {Siemens AG},
+  year        = {2024},
+  note        = {Downtime costs: \$36,000-\$2.3M per hour by industry}
 }
 
 @techreport{oecd2021,
-  title={The Digital Transformation of SMEs},
-  author={{OECD}},
-  year={2021},
-  note={Available: https://www.oecd.org/content/dam/oecd/en/publications/reports/2021/02/the-digital-transformation-of-smes\_ec3163f5/bdb9256a-en.pdf}
+  author      = {{OECD}},
+  title       = {The Digital Transformation of {SMEs}},
+  institution = {OECD Publishing},
+  year        = {2021},
+  doi         = {10.1787/bdb9256a-en}
 }
 
-@book{randall2011,
-  title={Vibration-based Condition Monitoring: Industrial, Automotive and Aerospace Applications},
-  author={Randall, R. B.},
-  publisher={Wiley},
-  address={Chichester, U.K.},
-  year={2011}
+% =========================================================
+% RÉFÉRENCES FRANCOPHONES ET RÉGIONALES
+% =========================================================
+
+
+% =========================================================
+% ARTICLES COMPLÉMENTAIRES (AJOUTS RÉCENTS)
+% =========================================================
+
+
+% =========================================================
+% TINYML ET MAINTENANCE PRÉDICTIVE
+% =========================================================
+
+@article{njor2024,
+  author  = {Njor, Emil and Hasanpour, Mohammad Amin and Madsen, Jan and Fafoutis, Xenofon},
+  title   = {A Holistic Review of the {TinyML} Stack for Predictive Maintenance},
+  journal = {IEEE Access},
+  volume  = {12},
+  pages   = {184861--184882},
+  year    = {2024},
+  doi     = {10.1109/ACCESS.2024.3512860},
+  note    = {Comprehensive TinyML+PdM pipeline review}
 }
+
+@article{ran2019,
+  author  = {Ran, Yongyi and Zhou, Xin and Lin, Pengfeng and Wen, Yonggang and Deng, Ruilong},
+  title   = {A Survey of Predictive Maintenance: Systems, Purposes and Approaches},
+  journal = {arXiv preprint arXiv:1912.07383},
+  year    = {2019},
+  note    = {Updated March 2024, comprehensive PdM survey},
+}
+
+@mastersthesis{jemmali2021,
+  author  = {Jemmali, Mariem},
+  title   = {Maintenance prédictive pour une turbine de puissance en utilisant des algorithmes d'apprentissage machine},
+  school  = {École de technologie supérieure},
+  year    = {2021},
+  address = {Montréal, Canada},
+  note    = {French regional reference, ML comparisons for rotating machinery},
+}
+
+% =========================================================
+% IMPLÉMENTATIONS RÉCENTES 2025
+% =========================================================
+
+@article{gupta2025,
+  author    = {Gupta, Shubbham and Shivhare, Shiv Naresh},
+  title     = {Embedded {TinyML} for Predictive Maintenance: Vibration Analysis on {ESP32} with Real-Time Fault Detection in Industrial Equipment},
+  journal   = {International Journal of Computing, Mathematics and Applications},
+  volume    = {2},
+  number    = {2},
+  year      = {2025},
+  doi       = {10.63503/j.ijcma.2025.114},
+  note      = {ESP32+ADXL345 implementation, >92\% accuracy - exact hardware match}
+}
+
+@article{kumar2025,
+  author    = {Kumar, Prashant and Singh, Saurabh and Song, Doug Young},
+  title     = {Investigation of Transfer Learning Method for Motor Fault Detection},
+  journal   = {Machines},
+  volume    = {13},
+  number    = {4},
+  pages     = {329},
+  year      = {2025},
+  publisher = {MDPI},
+  doi       = {10.3390/machines13040329},
+  note      = {Inception-ResNet-v2 for bearing faults, >99\% accuracy}
+}
+
+% =========================================================
+% OUTILS ET PLATEFORMES
+% =========================================================
+
+@misc{edgeimpulse2024,
+  author       = {{Edge Impulse Inc.}},
+  title        = {Motor Fault Detection using {TinyML}: Industrial Predictive Maintenance Case Study},
+  year         = {2024},
+  
+  note         = {Arduino Nano 33 BLE Sense implementation guide}
+}
+
+% =========================================================
+% DOCUMENTATION TECHNIQUE MATÉRIEL
+% =========================================================
+
+@techreport{adxl345,
+  author      = {{Analog Devices}},
+  title       = {{ADXL345}: 3-Axis, ±2g/±4g/±8g/±16g Digital Accelerometer},
+  year        = {2022},
+  number      = {Rev F},
+  institution = {Analog Devices Inc.},
+  note        = {Datasheet révision F}
+}
+
+@techreport{esp32,
+  author      = {{Espressif Systems}},
+  title       = {{ESP32-WROOM-32} Datasheet},
+  year        = {2024},
+  institution = {Espressif Systems},
+  note        = {Version 3.5. Dual-core 240MHz MCU specifications}
+}
+
+% =========================================================
+% DATASETS DE RÉFÉRENCE
+% =========================================================
+
+@misc{cwru2024,
+  author       = {{Case Western Reserve University}},
+  title        = {{CWRU} Bearing Data Center},
+  year         = {2024},
+  note         = {Base de données de référence pour validation. Consulté le 30 septembre 2025},
+  url          = {https://engineering.case.edu/bearingdatacenter}
+}
+
+% =========================================================
+% ALGORITHMES ML - RÉFÉRENCES ADDITIONNELLES
+% =========================================================
+
+@inproceedings{arthur2007,
+  author    = {Arthur, David and Vassilvitskii, Sergei},
+  title     = {k-means++: {T}he advantages of careful seeding},
+  booktitle = {Proceedings of the 18th Annual ACM-SIAM Symposium on Discrete Algorithms},
+  pages     = {1027--1035},
+  year      = {2007},
+  publisher = {SIAM},
+  doi       = {10.1145/1283383.1283494},
+  note      = {O(log k) approximation, 2-3x faster convergence}
+}
+
