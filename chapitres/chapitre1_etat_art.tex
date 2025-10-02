@@ -93,18 +93,11 @@ Le signal vibratoire brut capturé doit subir un traitement pour en extraire des
 \item \textbf{Le Kurtosis (Aplatissement) :} Indicateur statistique de la distribution des pics. Un Kurtosis élevé peut signaler des défauts précoces dans les roulements.
 \end{itemize}
 
-\textbf{Analyse Fréquentielle (FFT) :} La Transformation de Fourier Rapide (FFT), introduite par Cooley et Tukey \cite{cooley1965}, est la technique fondamentale pour convertir le signal temporel en spectre de fréquences. L'analyse fréquentielle permet d'identifier la source des vibrations, car chaque défaut se manifeste à des fréquences caractéristiques spécifiques.
+\textbf{Analyse Fréquentielle (FFT) :} La Transformation de Fourier Rapide (FFT), introduite par Cooley et Tukey \cite{cooley1965}, convertit le signal temporel en spectre de fréquences pour identifier les \textbf{fréquences caractéristiques} des défauts (par exemple, balourd près de $1 \times F_r$, désalignement près de $2 \times F_r$, où $F_r$ est la fréquence de rotation).
 
-\textbf{Théorème de Nyquist et échantillonnage :} Le théorème de Nyquist-Shannon impose une fréquence d'échantillonnage $f_s \geq 2f_{max}$ pour capturer fidèlement les composantes fréquentielles jusqu'à $f_{max}$ sans aliasing. La norme ISO 20816-1 spécifie une analyse typiquement jusqu'à 1\,kHz pour les machines tournantes \cite{iso20816-1}. Le choix de $f_s$ dépend de la vitesse de rotation de la machine et du rang harmonique maximal à surveiller.
+\textbf{Théorème de Nyquist :} Le théorème impose une fréquence d'échantillonnage $f_s \geq 2f_{max}$ pour éviter l'aliasing. La norme ISO 20816-1 spécifie typiquement une analyse jusqu'à 1\,kHz pour les machines tournantes \cite{iso20816-1}.
 
-\textbf{Fenêtrage et fuites spectrales :} L'application directe de la FFT sur des signaux tronqués génère des fuites spectrales. Les fonctions de fenêtrage atténuent ce phénomène :
-\begin{itemize}
-\item \textbf{Fenêtre de Hanning :} Réduit les fuites de 31\,dB, privilégiée pour l'analyse vibratoire générale
-\item \textbf{Fenêtre de Hamming :} Réduit les fuites de 43\,dB, optimale pour distinguer des fréquences proches
-\item \textbf{Fenêtre rectangulaire :} Maximise la résolution fréquentielle mais génère des lobes secondaires importants
-\end{itemize}
-
-\textbf{Compromis résolution-latence :} La résolution fréquentielle est donnée par $\Delta f = f_s/N$ où $N$ est le nombre de points FFT. La complexité computationnelle de la FFT est $O(N \log N)$. Le choix de $N$ résulte d'un compromis entre la résolution spectrale souhaitée, la latence de calcul acceptable, et les capacités du microcontrôleur. Des valeurs courantes pour les applications embarquées sont $N \in \{256, 512, 1024, 2048\}$ points.
+\textbf{Fenêtrage et paramètres FFT :} Des fonctions de fenêtrage (Hann, Hamming) sont appliquées pour réduire les fuites spectrales. Le choix du nombre de points FFT ($N$) résulte d'un compromis entre résolution fréquentielle ($\Delta f = f_s/N$) et latence de calcul. Les détails de configuration et d'optimisation relèvent de la méthodologie expérimentale (Chapitre~\ref{chap:conception}).
 
 \subsection{Caractéristiques vibratoires courantes}
 
@@ -135,11 +128,7 @@ L'apprentissage automatique (ML) est au cœur de la PdM pour l'identification et
 
 Les méthodes non supervisées sont essentielles pour la détection d'anomalies (AD) dans les scénarios industriels où la majorité des données représentent un fonctionnement normal (état sain) \cite{arciniegas2025}. Ces algorithmes modélisent le comportement normal et signalent tout écart significatif.
 
-\textbf{K-means} \cite{macqueen1967} : Algorithme de clustering proposé par MacQueen, qui partitionne les données en $k$ groupes en minimisant la variance intra-cluster. Dans le contexte de la maintenance, il modélise les données d'état sain et détecte les anomalies par analyse des distances aux centres de clusters.
-
-L'algorithme itère selon le processus de Lloyd : (1) assignation de chaque point au centre le plus proche, (2) recalcul des centres comme barycentres des points assignés, (3) convergence lorsque les déplacements des centres deviennent négligeables. L'initialisation K-means++ \cite{arthur2007}, qui sélectionne les centres initiaux avec une probabilité proportionnelle au carré de la distance, offre une garantie d'approximation $O(\log k)$ et améliore la convergence.
-
-K-means présente des limitations : hypothèse de clusters sphériques, sensibilité à l'initialisation, et nécessité de spécifier $k$ a priori. La sélection de $k$ utilise couramment la méthode du coude analysant la variance intra-cluster $J = \sum_{i=1}^{n} \min_{j} ||x_i - \mu_j||^2$. Avec une complexité de $O(nkid)$ où $n$=échantillons, $k$=clusters, $i$=itérations, $d$=dimensions, et une empreinte mémoire typique de 20-100\,KB selon la configuration, K-means est adapté aux microcontrôleurs contraints.
+\textbf{K-means} \cite{macqueen1967,chandola2009} : Méthode de partitionnement non supervisée qui regroupe des observations présentant des caractéristiques proches. En maintenance, elle sert à modéliser la \textbf{normalité} et à signaler comme \textbf{anomalies} les observations très éloignées des centroïdes. Atouts : simplicité, faible empreinte mémoire, interprétabilité. Points d'attention : hypothèse de clusters compacts, choix de $k$ (typiquement par méthode du coude).
 
 \textbf{Isolation Forest (IF) :} Cet algorithme, particulièrement efficace pour l'AD, isole les anomalies en utilisant des partitions aléatoires. Il est performant et nécessite une complexité moyenne ($O(n \log n)$), le rendant adapté à l'embarqué. Antonini et al. (2023) l'ont utilisé sur microcontrôleur, réalisant une détection d'anomalie en moins de 16\,ms avec 84\,KB de RAM \cite{antonini2023}.
 
@@ -163,22 +152,53 @@ La comparaison objective des algorithmes met en évidence un compromis crucial :
 
 \begin{table}[ht]
 \centering
-\caption{Comparaison des algorithmes ML pour la détection d'anomalies vibratoires}
+\caption{Comparaison qualitative des méthodes de détection d'anomalies}
 \label{tab:ml_comparison}
-\begin{tabular}{llllll}
+\begin{tabular}{p{2.8cm}p{2.5cm}p{4.2cm}p{3.2cm}p{2cm}}
 \toprule
-\textbf{Algorithme} & \textbf{Complexité} & \textbf{Mémoire} & \textbf{Précision} & \textbf{Faisabilité} & \textbf{Source} \\
- & & \textbf{(KB)} & & \textbf{Embarquée} & \textbf{Mémoire} \\
+\textbf{Famille} &
+\textbf{Adéquation PdM} &
+\textbf{Usage typique} &
+\textbf{Points d'attention} &
+\textbf{Réf.} \\
 \midrule
-K-means \cite{macqueen1967} & $O(nkid)$ & 20-30\textsuperscript{a} & Élevée & Oui & \cite{macqueen1967,arthur2007} \\
-Isolation Forest & $O(n \log n)$ & 84\textsuperscript{b} & Élevée & Oui (<16\,ms) & \cite{antonini2023} \\
-SVM & $O(n^2)$ & 200-300\textsuperscript{a} & Très élevée & Limité & \cite{jemmali2021} \\
-CNN & $O(n \cdot m \cdot k)$ & 150-250 & Très élevée & Avec quant. & \cite{langer2025,arciniegas2025} \\
-LSTM & $O(n \cdot h^2)$ & 300-500\textsuperscript{a} & Très élevée & Limité & \cite{ran2019} \\
-Autoencodeurs & $O(n \cdot l \cdot h)$ & 100-200\textsuperscript{a} & Élevée & Limité & \cite{ran2019,arciniegas2025} \\
+
+K-means &
+Bonne (léger, simple) &
+Modéliser la normalité; score distance-centroïdes &
+Choix de $k$, sensibilité à l'échelle &
+\cite{macqueen1967,chandola2009} \\
+\midrule
+
+Isolation Forest &
+Bonne si anomalies rares &
+Isolement par partitions aléatoires &
+Réglages (\#arbres/profondeur) &
+\cite{chandola2009,antonini2023} \\
+\midrule
+
+One-Class SVM &
+Moyenne &
+Frontière de normalité &
+Sensible aux hyperparamètres/échelle &
+\cite{chandola2009} \\
+\midrule
+
+Autoencodeurs &
+Possible (optimisés) &
+Reconstruction du normal &
+Empreinte/mise au point des seuils &
+\cite{chandola2009,ran2019} \\
+\midrule
+
+CNN/LSTM &
+Possible (quantifiés) &
+Extraction automatique de caractéristiques &
+Ressources élevées, quantification requise &
+\cite{langer2025,arciniegas2025} \\
+
 \bottomrule
-\multicolumn{6}{l}{\textsuperscript{a}Estimation qualitative pour paradigme TinyML ($<256$~KB SRAM typique)} \\
-\multicolumn{6}{l}{\textsuperscript{b}Valeur mesurée rapportée dans \cite{antonini2023}} \\
+\multicolumn{5}{p{15cm}}{\small Note : Les performances dépendent fortement de la configuration matérielle, des paramètres DSP et des compromis algorithmiques. Validation spécifique requise pour chaque contexte.} \\
 \end{tabular}
 \end{table}
 
@@ -205,42 +225,40 @@ Ces contraintes imposent l'utilisation de modèles ML extrêmement légers. L'ob
 
 \subsection{Chaîne d'outils et Optimisation}
 
-Pour que les modèles ML puissent s'exécuter dans un environnement aussi contraint, des outils et des techniques d'optimisation sont indispensables.
+Les déploiements TinyML s'appuient sur des moteurs d'inférence pour microcontrôleurs, des pipelines de traitement du signal (DSP) et des techniques d'optimisation pour réduire l'empreinte mémoire et la latence tout en maintenant la performance de détection.
 
-\textbf{TensorFlow Lite Micro (TFLite Micro) :} Ce cadre logiciel est un moteur d'inférence conçu spécifiquement pour les microcontrôleurs. Il est essentiel pour convertir et optimiser les modèles entraînés sur PC avant leur déploiement sur l'appareil \textit{Edge} \cite{tsoukas2024}.
+\textbf{Moteurs d'inférence :} Parmi les frameworks disponibles, \textbf{TensorFlow Lite Micro} permet la conversion et l'exécution de modèles entraînés sur PC vers des microcontrôleurs \cite{tsoukas2024}. D'autres solutions incluent des implémentations spécifiques aux fabricants de MCU.
 
-\textbf{Edge Impulse :} Plateforme de développement end-to-end qui facilite l'acquisition de données, le traitement des signaux et la création de modèles optimisés pour les applications TinyML. Elle offre plusieurs fonctionnalités adaptées aux microcontrôleurs :
+\textbf{Plateformes de développement :} Des environnements intégrés comme \textbf{Edge Impulse} proposent une chaîne complète (acquisition, traitement DSP, apprentissage, déploiement) avec génération de bibliothèques embarquées. Ces plateformes intègrent généralement :
 
 \begin{itemize}
-\item \textbf{Support multi-plateforme :} SDK optimisés pour divers MCU (ESP32, STM32, Arduino) avec accélération matérielle DSP
-\item \textbf{Algorithmes d'apprentissage intégrés :} Bibliothèques de clustering (K-means), classification (Random Forest, SVM), et réseaux neuronaux
-\item \textbf{Pipeline DSP optimisé :} Implémentation CMSIS-DSP de la FFT et autres transformées temps-fréquence
-\item \textbf{Quantification automatique :} Conversion int8/int16 des modèles pour réduire l'empreinte mémoire avec perte minimale de précision
+\item Support de multiples architectures MCU (ESP32, STM32, Arduino, etc.)
+\item Algorithmes d'apprentissage (clustering, classification, réseaux neuronaux)
+\item Pipelines DSP (FFT, transformées temps-fréquence)
+\item Outils de quantification (int8/int16) pour la compression des modèles
 \end{itemize}
 
-Arciniegas et al. (2025) ont démontré l'efficacité d'Edge Impulse pour la détection vibratoire, atteignant 96.5\% de précision avec seulement 45\,KB de RAM utilisée \cite{arciniegas2025}.
+Des études de cas rapportent l'utilisation de ces plateformes pour la détection vibratoire, avec des résultats variables selon la configuration matérielle et les compromis algorithmiques adoptés \cite{arciniegas2025}.
 
 L'optimisation des modèles repose principalement sur des techniques de compression :
 \begin{itemize}
-\item \textbf{Quantification :} Réduction de la précision numérique des poids du réseau (par exemple, de 32 bits en virgule flottante à 8 bits entiers). Cela réduit la taille du modèle et accélère l'inférence \cite{arciniegas2025,langer2025}.
-\item \textbf{Élagage (\textit{Pruning}) :} Suppression des connexions et des neurones jugés non essentiels, ce qui réduit la complexité du modèle sans compromettre significativement la précision \cite{tsoukas2024}.
+\item \textbf{Quantification :} Réduction de la précision numérique des poids (par exemple, de 32 bits flottants à 8 bits entiers), réduisant la taille du modèle et accélérant l'inférence \cite{arciniegas2025,langer2025}.
+\item \textbf{Élagage (\textit{Pruning}) :} Suppression des connexions et neurones non essentiels pour réduire la complexité \cite{tsoukas2024}.
 \end{itemize}
 
 \subsection{Cas d'application en détection d'anomalies vibratoires}
 
-Les travaux récents démontrent la faisabilité et l'efficacité du TinyML dans la PdM industrielle :
+Des travaux récents démontrent la \textbf{faisabilité} de la détection d'anomalies vibratoires en temps quasi réel sur microcontrôleurs, avec des approches et performances variables selon les configurations matérielles et algorithmiques :
 
-\textbf{Antonini et al. (2023)} \cite{antonini2023} : Ont développé et validé un système de détection d'anomalies basé sur l'algorithme \textbf{Isolation Forest (IF)}, implémenté en \textit{MicroPython} sur un microcontrôleur \textbf{ESP32\_WROVER\_IE} (4\,MB SPIRAM, 4\,MB Flash). Ce système a démontré une robustesse en environnements industriels extrêmes (températures de -40°C à +85°C), avec une latence d'inférence inférieure à 16\,ms et une consommation mémoire de \textbf{84\,KB}. Ces résultats illustrent le potentiel du TinyML pour des applications industrielles contraintes.
+\textbf{Antonini et al. (2023)} \cite{antonini2023} ont validé un système basé sur \textbf{Isolation Forest} sur microcontrôleur \textbf{ESP32\_WROVER\_IE} (avec mémoire externe PSRAM), démontrant une robustesse en environnements industriels extrêmes (-40°C à +85°C) avec des latences d'inférence de l'ordre de quelques dizaines de millisecondes.
 
-\textbf{Arciniegas et al. (2025)} \cite{arciniegas2025} : Ont présenté un dispositif TinyML pour la détection de défauts de roulements de moteurs. Leur système, utilisant une analyse spectrale et un réseau neuronal quantifié (\textit{deep learning}), a atteint une précision de \textbf{96,5\,\%} en laboratoire. La latence totale (de l'acquisition de données à l'alerte) était de \textbf{300\,ms}.
+\textbf{Note matérielle :} Ces résultats ont été obtenus sur une configuration disposant de mémoire externe (PSRAM); la transposabilité dépend des ressources disponibles sur le microcontrôleur cible.
 
-\textbf{Langer et al. (2025)} \cite{langer2025} : Ont exploré le TinyML pour la surveillance de machines-outils CNC (fraiseuses), en ciblant la détection rapide des défauts de processus. Ils ont souligné la nécessité d'une co-optimisation poussée du pré-traitement (FFT, spectrogramme) et du modèle ML pour respecter le temps réel. Leur approche basée sur un CNN optimisé a permis une inférence totale de l'ordre de \textbf{84,5\,ms} dans cette configuration spécifique.
-
-\textbf{Gupta et al. (2025)} \cite{gupta2025} : Ont implémenté un cadre TinyML pour l'analyse vibratoire et la détection de défauts en temps réel sur équipements industriels, en utilisant la combinaison spécifique de capteurs MEMS et microcontrôleurs. Le modèle, un CNN-1D optimisé, a démontré une précision supérieure à 92\,\%.
+D'autres études \cite{arciniegas2025,langer2025,gupta2025} rapportent des implémentations TinyML utilisant des réseaux neuronaux quantifiés (CNN-1D) pour la détection vibratoire, avec des précisions variables en laboratoire. Les performances dépendent fortement du \textbf{contexte matériel}, des \textbf{paramètres DSP} (taille FFT, fenêtrage) et des \textbf{compromis mémoire/latence} adoptés.
 
 Le TinyML permet théoriquement le déport d'une capacité analytique sophistiquée (y compris \textit{Deep Learning} ou algorithmes d'ensemble) directement sur des dispositifs peu coûteux et autonomes, visant une détection d'anomalies à faible latence potentiellement compatible avec les exigences industrielles en temps réel.
 
-Il est important de reconnaître que la majorité des travaux académiques sur le TinyML pour la maintenance, y compris le nôtre, s'appuient sur des validations en laboratoire avec des défauts contrôlés. Cette approche méthodologique, bien que nécessaire pour établir la faisabilité technique, constitue une première étape vers le déploiement industriel. Les défis de la maintenance à long terme et l'adaptation aux conditions industrielles variables restent des axes de recherche ouverts pour l'ensemble de la communauté scientifique. De plus, le compromis fondamental entre latence et précision reste sous-exploré : une latence réduite (<10\,ms) implique souvent des simplifications algorithmiques (réduction du nombre de caractéristiques, quantification agressive) qui peuvent affecter la sensibilité de détection, particulièrement pour les anomalies subtiles ou progressives caractéristiques de l'usure normale des équipements industriels.
+Il est important de reconnaître que la majorité des travaux académiques sur le TinyML pour la maintenance s'appuient sur des validations en laboratoire avec des défauts contrôlés. Cette approche méthodologique, bien que nécessaire pour établir la faisabilité technique, constitue une première étape vers le déploiement industriel. Les défis de la maintenance à long terme et l'adaptation aux conditions industrielles variables restent des axes de recherche ouverts pour l'ensemble de la communauté scientifique. De plus, le compromis fondamental entre latence et précision reste sous-exploré : une latence réduite (<10\,ms) implique souvent des simplifications algorithmiques (réduction du nombre de caractéristiques, quantification agressive) qui peuvent affecter la sensibilité de détection, particulièrement pour les anomalies subtiles ou progressives caractéristiques de l'usure normale des équipements industriels.
 
 \section{Synthèse critique et positionnement}
 \label{sec:synthese_critique}
