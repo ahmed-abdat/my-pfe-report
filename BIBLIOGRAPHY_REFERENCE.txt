@@ -585,7 +585,7 @@ Key:         cwru2024
 Author:      Case Western Reserve University
 Title:       CWRU Bearing Data Center
 Year:        2024
-Note:        Base de données de référence pour validation. Consulté le 30 septembre 2025
+Note:        Base de données de référence pour validation. Consulté le 30 septembre 2024
 Usage:       Benchmark comparison (Chapter 3)
 URL:         https://engineering.case.edu/bearingdatacenter
 Dataset:     - Normal baseline
