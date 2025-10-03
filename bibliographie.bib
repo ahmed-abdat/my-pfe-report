@@ -12,28 +12,28 @@
 
 @standard{en13306,
   title        = {{EN 13306:2017 --- Maintenance --- Maintenance terminology}},
-  organization = {European Committee for Standardization},
+  organization = {European Committee for Standardization (CEN)},
   year         = {2017},
   address      = {Brussels, Belgium},
 }
 
 @standard{iso17359,
   title        = {{ISO 17359:2018 --- Condition monitoring and diagnostics of machines --- General guidelines}},
-  organization = {International Organization for Standardization},
+  organization = {International Organization for Standardization (ISO)},
   year         = {2018},
   address      = {Geneva, Switzerland},
 }
 
 @standard{iso20816-1,
   title        = {{ISO 20816-1:2016 --- Mechanical vibration --- Measurement and evaluation of machine vibration --- Part 1: General guidelines}},
-  organization = {International Organization for Standardization},
+  organization = {International Organization for Standardization (ISO)},
   year         = {2016},
   address      = {Geneva, Switzerland},
 }
 
 @standard{iso20816-3,
   title        = {{ISO 20816-3:2022 --- Mechanical vibration --- Measurement and evaluation of machine vibration --- Part 3: Industrial machinery with power rating above 15 kW}},
-  organization = {International Organization for Standardization},
+  organization = {International Organization for Standardization (ISO)},
   year         = {2022},
   address      = {Geneva, Switzerland},
 }
@@ -155,11 +155,9 @@
   author       = {Langer, Tim and Widra, Matthias and Beyer, Volkhard},
   title        = {{TinyML} towards {I}ndustry 4.0: {R}esource-efficient process monitoring of a milling machine},
   year         = {2025},
-  month        = aug,
   archivePrefix= {arXiv},
   eprint       = {2508.16553},
-  primaryClass = {cs.LG},
-  note         = {arXiv preprint}
+  primaryClass = {cs.LG}
 }
 
 % =========================================================
@@ -176,12 +174,13 @@
 }
 
 @inproceedings{banbury2021,
-  author    = {Banbury, Colby and Reddi, Vijay Janapa and Torelli, Peter and Holleman, Jeremy and Jeffries, Nat and Kiraly, Csaba and Montino, Pietro and Kanter, David and Ahmed, Sebastian and Pau, Danilo and others},
-  title     = {{MLPerf Tiny} benchmark},
-  booktitle = {Proceedings of the Neural Information Processing Systems Track on Datasets and Benchmarks},
-  volume    = {1},
-  year      = {2021},
-  note      = {Also available at arXiv:2106.07597}
+  author       = {Banbury, Colby and Reddi, Vijay Janapa and Torelli, Peter and Holleman, Jeremy and Jeffries, Nat and Kiraly, Csaba and Montino, Pietro and Kanter, David and Ahmed, Sebastian and Pau, Danilo and others},
+  title        = {{MLPerf Tiny} benchmark},
+  booktitle    = {Proceedings of the Neural Information Processing Systems Track on Datasets and Benchmarks},
+  volume       = {1},
+  year         = {2021},
+  archivePrefix= {arXiv},
+  eprint       = {2106.07597}
 }
 
 @article{reddi2022,
@@ -274,8 +273,7 @@
   number  = {4},
   pages   = {2344},
   year    = {2023},
-  doi     = {10.3390/s23042344},
-  note    = {Isolation Forest on ESP32\_WROVER\_IE (4 MB SPIRAM), <16ms latency, 84KB RAM usage}
+  doi     = {10.3390/s23042344}
 }
 
 @article{katib2025,
@@ -286,8 +284,7 @@
   number  = {2},
   pages   = {103281},
   year    = {2025},
-  doi     = {10.1016/j.asej.2025.103281},
-  note    = {Real-time anomaly detection on edge devices using deep learning}
+  doi     = {10.1016/j.asej.2025.103281}
 }
 
 % =========================================================
@@ -295,19 +292,22 @@
 % =========================================================
 
 @techreport{mckinsey2021,
-  author      = {{McKinsey \& Company}},
+  author      = {Brink, Harold and Krych, Adam and {Ramirez Cardenas}, Orlando and Tiwari, Sanchit},
   title       = {Establishing the right analytics-based maintenance strategy},
-  institution = {McKinsey Global Institute},
+  institution = {McKinsey \& Company},
   year        = {2021},
-  month       = jul
+  month       = jul,
+  url         = {https://www.mckinsey.com/capabilities/operations/our-insights/establishing-the-right-analytics-based-maintenance-strategy},
+  note        = {Consulté le 3 octobre 2025}
 }
 
 @techreport{siemens2024,
-  author      = {{Siemens (Senseye)}},
-  title       = {The True Cost of Downtime 2024},
+  author      = {{Siemens Senseye}},
+  title       = {{SENSEYE} Predictive Maintenance: The True Cost of Downtime 2024},
   institution = {Siemens AG},
   year        = {2024},
-  note        = {Downtime costs: \$36,000-\$2.3M per hour by industry}
+  url         = {https://assets.new.siemens.com/siemens/assets/api/uuid:1b43afb5-2d07-47f7-9eb7-893fe7d0bc59/TCOD-2024_original.pdf},
+  note        = {Consulté le 3 octobre 2025}
 }
 
 @techreport{oecd2021,
@@ -334,21 +334,21 @@
 
 @article{njor2024,
   author  = {Njor, Emil and Hasanpour, Mohammad Amin and Madsen, Jan and Fafoutis, Xenofon},
-  title   = {A Holistic Review of the {TinyML} Stack for Predictive Maintenance},
+  title   = {A holistic review of the {TinyML} stack for predictive maintenance},
   journal = {IEEE Access},
   volume  = {12},
   pages   = {184861--184882},
   year    = {2024},
-  doi     = {10.1109/ACCESS.2024.3512860},
-  note    = {Comprehensive TinyML+PdM pipeline review}
+  doi     = {10.1109/ACCESS.2024.3512860}
 }
 
-@article{ran2019,
-  author  = {Ran, Yongyi and Zhou, Xin and Lin, Pengfeng and Wen, Yonggang and Deng, Ruilong},
-  title   = {A Survey of Predictive Maintenance: Systems, Purposes and Approaches},
-  journal = {arXiv preprint arXiv:1912.07383},
-  year    = {2019},
-  note    = {Updated March 2024, comprehensive PdM survey},
+@misc{ran2019,
+  author       = {Ran, Yongyi and Zhou, Xin and Lin, Pengfeng and Wen, Yonggang and Deng, Ruilong},
+  title        = {A survey of predictive maintenance: Systems, purposes and approaches},
+  year         = {2019},
+  archivePrefix= {arXiv},
+  eprint       = {1912.07383},
+  primaryClass = {cs.LG}
 }
 
 @mastersthesis{jemmali2021,
@@ -356,8 +356,7 @@
   title   = {Maintenance prédictive pour une turbine de puissance en utilisant des algorithmes d'apprentissage machine},
   school  = {École de technologie supérieure},
   year    = {2021},
-  address = {Montréal, Canada},
-  note    = {French regional reference, ML comparisons for rotating machinery},
+  address = {Montréal, Canada}
 }
 
 % =========================================================
@@ -366,26 +365,24 @@
 
 @article{gupta2025,
   author    = {Gupta, Shubbham and Shivhare, Shiv Naresh},
-  title     = {Embedded {TinyML} for Predictive Maintenance: Vibration Analysis on {ESP32} with Real-Time Fault Detection in Industrial Equipment},
+  title     = {Embedded {TinyML} for predictive maintenance: Vibration analysis on {ESP32} with real-time fault detection in industrial equipment},
   journal   = {International Journal of Computing, Mathematics and Applications},
   volume    = {2},
   number    = {2},
   year      = {2025},
-  doi       = {10.63503/j.ijcma.2025.114},
-  note      = {ESP32+ADXL345 implementation, >92\% accuracy - exact hardware match}
+  doi       = {10.63503/j.ijcma.2025.114}
 }
 
 @article{kumar2025,
   author    = {Kumar, Prashant and Singh, Saurabh and Song, Doug Young},
-  title     = {Investigation of Transfer Learning Method for Motor Fault Detection},
+  title     = {Investigation of transfer learning method for motor fault detection},
   journal   = {Machines},
   volume    = {13},
   number    = {4},
   pages     = {329},
   year      = {2025},
   publisher = {MDPI},
-  doi       = {10.3390/machines13040329},
-  note      = {Inception-ResNet-v2 for bearing faults, >99\% accuracy}
+  doi       = {10.3390/machines13040329}
 }
 
 % =========================================================
@@ -394,10 +391,11 @@
 
 @misc{edgeimpulse2024,
   author       = {{Edge Impulse Inc.}},
-  title        = {Motor Fault Detection using {TinyML}: Industrial Predictive Maintenance Case Study},
-  year         = {2024},
-  
-  note         = {Arduino Nano 33 BLE Sense implementation guide}
+  title        = {Detect motor anomalies using edge {ML}},
+  year         = {2023},
+  month        = dec,
+  url          = {https://www.edgeimpulse.com/blog/detect-motor-anomalies-using-edge-ml/},
+  note         = {Consulté le 3 octobre 2025}
 }
 
 % =========================================================
@@ -444,7 +442,6 @@
   pages     = {1027--1035},
   year      = {2007},
   publisher = {SIAM},
-  doi       = {10.1145/1283383.1283494},
-  note      = {O(log k) approximation, 2-3x faster convergence}
+  address   = {Philadelphia, PA, USA}
 }
 

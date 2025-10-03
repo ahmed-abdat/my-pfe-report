@@ -40,9 +40,9 @@ La norme EN 13306 \cite{en13306} et les travaux de revue \cite{ran2019} distingu
 Les temps d'arrêt imprévus (\textit{unplanned downtime}) constituent un enjeu économique majeur pour l'industrie manufacturière. Selon une analyse sectorielle réalisée par Siemens en 2024, basée sur une enquête auprès de 181 professionnels de la maintenance entre 2019 et 2023, les coûts horaires d'immobilisation varient considérablement selon le secteur \cite{siemens2024}\footnote{Ces données proviennent d'un rapport industriel (Siemens Senseye, 2024) et n'ont pas fait l'objet d'une validation académique indépendante par des revues évaluées par les pairs. Elles sont utilisées ici pour contextualiser l'enjeu stratégique de la maintenance prédictive.} :
 
 \begin{itemize}
-\item Biens de consommation courante (FMCG) : 36\,000\,\$/heure
-\item Industrie automobile : jusqu'à 2,3\,millions\,\$/heure dans les grandes usines
-\item Petites et moyennes entreprises : environ 150\,000\,\$/heure
+\item Biens de consommation courante : 36~000 dollars par heure
+\item Industrie automobile : jusqu'à 2,3 millions de dollars par heure dans les grandes usines
+\item Petites et moyennes entreprises : environ 150~000 dollars par heure
 \end{itemize}
 
 À l'échelle macroéconomique, les pertes annuelles attribuées aux temps d'arrêt non planifiés pour les 500 plus grandes entreprises mondiales sont estimées à 1,4~trillion de dollars \cite{siemens2024}. Le potentiel d'économie associé à l'adoption de la Maintenance Prédictive (PdM) est régulièrement chiffré dans les rapports industriels à une réduction des coûts de maintenance de l'ordre de 40\,\% \cite{siemens2024}. Ces projections, si elles se confirment à grande échelle, représenteraient des économies significatives pour les entreprises industrielles.
@@ -67,7 +67,7 @@ L'analyse vibratoire est la modalité de surveillance la plus courante et la plu
 
 L'évaluation des vibrations est encadrée par les normes internationales de l'Organisation Internationale de Normalisation (ISO), notamment la série ISO 20816.
 
-La \textbf{Norme ISO 20816-1:2016} \cite{iso20816-1} établit les lignes directrices générales pour la mesure et l'évaluation des vibrations mécaniques des machines, applicable aux mesures effectuées sur les parties tournantes (arbres) et non tournantes (paliers) en conditions de fonctionnement stable. Elle stipule que l'évaluation se fait typiquement en considérant l'amplitude de la vibration large bande observée. Elle précise également les quantités de mesure (déplacement, vitesse, accélération) et la plage de réponse en fréquence requise, qui est d'au moins 10\,Hz à 1\,000\,Hz pour l'évaluation de la vitesse efficace (r.m.s.).
+La \textbf{Norme ISO 20816-1:2016} \cite{iso20816-1} établit les lignes directrices générales pour la mesure et l'évaluation des vibrations mécaniques des machines, applicable aux mesures effectuées sur les parties tournantes (arbres) et non tournantes (paliers) en conditions de fonctionnement stable. Elle stipule que l'évaluation se fait typiquement en considérant l'amplitude de la vibration large bande observée. Elle précise également les quantités de mesure (déplacement, vitesse, accélération) et la plage de réponse en fréquence requise, qui est d'au moins 10\,Hz à 1\,000\,Hz pour l'évaluation de la valeur efficace (RMS).
 
 La \textbf{Norme ISO 20816-3:2022} \cite{iso20816-3} est un document sectoriel qui spécifie les exigences pour l'évaluation des vibrations des machines industrielles accouplées d'une puissance nominale supérieure à 15\,kW et fonctionnant entre 120\,tr/min et 30\,000\,tr/min. Elle fournit des critères d'évaluation pour les mesures effectuées \textit{in-situ} sur des paliers ou des supports de palier.
 
@@ -83,17 +83,17 @@ Le signal vibratoire brut capturé doit subir un traitement pour en extraire des
 
 \begin{enumerate}
 \item \textbf{Prétraitement :} Il inclut le nettoyage des données brutes pour réduire le bruit et les artefacts \cite{bagri2024}.
-\item \textbf{Traitement du Signal :} C'est la conversion du signal du domaine temporel au domaine fréquentiel ou temps-fréquence.
-\item \textbf{Extraction de Caractéristiques :} Calcul d'indicateurs (statistiques, fréquentiels) qui servent d'entrées aux modèles ML/DL.
+\item \textbf{Traitement du signal :} C'est la conversion du signal du domaine temporel au domaine fréquentiel ou temps-fréquence.
+\item \textbf{Extraction de caractéristiques :} Calcul d'indicateurs (statistiques, fréquentiels) qui servent d'entrées aux modèles ML/DL.
 \end{enumerate}
 
-\textbf{Analyse Temporelle :} L'analyse du domaine temporel examine directement la forme d'onde enregistrée pour en extraire des descripteurs statistiques. Le niveau d'amplitude est un bon indicateur de la condition de la machine et de la gravité du défaut. Les caractéristiques couramment utilisées incluent :
+\textbf{Analyse temporelle :} L'analyse du domaine temporel examine directement la forme d'onde enregistrée pour en extraire des descripteurs statistiques. Le niveau d'amplitude est un bon indicateur de la condition de la machine et de la gravité du défaut. Les caractéristiques couramment utilisées incluent :
 \begin{itemize}
 \item \textbf{La Moyenne Quadratique (RMS -- Root Mean Square) :} Mesure robuste de l'amplitude de la vibration qui est moins sensible aux variations extrêmes et plus indicative de l'énergie totale du signal.
 \item \textbf{Le Kurtosis (Aplatissement) :} Indicateur statistique de la distribution des pics. Un Kurtosis élevé peut signaler des défauts précoces dans les roulements.
 \end{itemize}
 
-\textbf{Analyse Fréquentielle (FFT) :} La Transformation de Fourier Rapide (FFT), introduite par Cooley et Tukey \cite{cooley1965}, convertit le signal temporel en spectre de fréquences pour identifier les \textbf{fréquences caractéristiques} des défauts (par exemple, balourd près de $1 \times F_r$, désalignement près de $2 \times F_r$, où $F_r$ est la fréquence de rotation). Le \textbf{théorème de Nyquist} impose une fréquence d'échantillonnage $f_s \geq 2f_{max}$ pour éviter l'aliasing. La norme ISO 20816-1 spécifie typiquement une analyse jusqu'à 1\,kHz pour les machines tournantes \cite{iso20816-1}. Les choix pratiques (fenêtrage, taille FFT, résolution) relèvent de la \textbf{méthodologie expérimentale} (chapitre suivant).
+\textbf{Analyse fréquentielle (FFT) :} La transformée de Fourier rapide (FFT), introduite par Cooley et Tukey \cite{cooley1965}, convertit le signal temporel en spectre de fréquences pour identifier les \textbf{fréquences caractéristiques} des défauts (par exemple, balourd près de $1 \times F_r$, désalignement près de $2 \times F_r$, où $F_r$ est la fréquence de rotation). Le \textbf{théorème de Nyquist} impose une fréquence d'échantillonnage $f_s \geq 2f_{max}$ pour éviter l'aliasing. La norme ISO 20816-1 spécifie typiquement une analyse jusqu'à 1\,kHz pour les machines tournantes \cite{iso20816-1}. Les choix pratiques (fenêtrage, taille FFT, résolution) relèvent de la \textbf{méthodologie expérimentale} (chapitre suivant).
 
 \subsection{Caractéristiques vibratoires courantes}
 
@@ -136,11 +136,10 @@ Lorsque des \textbf{données de défauts étiquetées} sont disponibles, des cla
 
 \begin{table}[ht]
 \centering
-\caption{Comparaison qualitative des méthodes de détection d'anomalies}
-\label{tab:ml_comparison}
-\begin{tabular}{p{2.8cm}p{2.5cm}p{4.2cm}p{3.2cm}p{2cm}}
+\small
+\begin{tabular}{@{}p{2.5cm}p{2.5cm}p{5cm}p{4cm}p{1.2cm}@{}}
 \toprule
-\textbf{Famille} &
+\textbf{Méthode} &
 \textbf{Adéquation PdM} &
 \textbf{Usage typique} &
 \textbf{Points d'attention} &
@@ -148,49 +147,59 @@ Lorsque des \textbf{données de défauts étiquetées} sont disponibles, des cla
 \midrule
 
 K-means &
-Bonne (léger, simple) &
-Modéliser la normalité; score distance-centroïdes &
-Choix de $k$, sensibilité à l'échelle &
+Bonne &
+Modélisation de la normalité par score de distance aux centroïdes &
+Choix de $k$ et sensibilité à l'échelle des données &
 \cite{macqueen1967,chandola2009} \\
+
 \midrule
 
 Isolation Forest &
-Bonne si anomalies rares &
-Isolement par partitions aléatoires &
-Réglages (\#arbres/profondeur) &
+Bonne &
+Isolement des anomalies par partitions aléatoires sur l'espace des caractéristiques &
+Réglage du nombre d'arbres et de la profondeur maximale &
 \cite{chandola2009,antonini2023} \\
+
 \midrule
 
 One-Class SVM &
 Moyenne &
-Frontière de normalité &
-Sensible aux hyperparamètres/échelle &
+Définition d'une frontière de normalité en espace transformé par noyau &
+Forte sensibilité aux hyperparamètres et à l'échelle &
 \cite{chandola2009} \\
+
 \midrule
 
 Autoencodeurs &
-Possible (optimisés) &
-Reconstruction du normal &
-Empreinte/mise au point des seuils &
+Limitée &
+Reconstruction du signal nominal avec détection par erreur de reconstruction &
+Empreinte mémoire importante et réglage des seuils critiques &
 \cite{chandola2009,ran2019} \\
+
 \midrule
 
 CNN/LSTM &
-Possible (quantifiés) &
-Extraction automatique de caractéristiques &
-Ressources élevées, quantification requise &
+Limitée &
+Extraction automatique de caractéristiques temporelles et fréquentielles &
+Ressources computationnelles élevées et quantification obligatoire &
 \cite{langer2025,arciniegas2025} \\
 
 \bottomrule
-\multicolumn{5}{p{15cm}}{\small Note : Les performances dépendent fortement de la configuration matérielle, des paramètres de traitement du signal et des compromis algorithmiques. Validation spécifique requise pour chaque contexte.} \\
 \end{tabular}
+
+\vspace{0.3cm}
+\caption{Comparaison qualitative des méthodes de détection d'anomalies}
+\label{tab:ml_comparison}
+
+\vspace{0.2cm}
+\footnotesize\textit{Note} : Les performances dépendent fortement de la configuration matérielle, des paramètres de traitement du signal et des compromis algorithmiques. Validation spécifique requise pour chaque contexte.
 \end{table}
 
 
 \section{TinyML Industriel}
 \label{sec:tinyml_industriel}
 
-Le TinyML est l'extension de l'intelligence artificielle jusqu'aux dispositifs d'extrémité (\textit{extreme edge}), permettant l'exécution de modèles ML directement sur des microcontrôleurs (MCU) à ultra-faible consommation \cite{tsoukas2024,njor2024}. Ce changement de paradigme est fondamental pour la PdM, car il supprime les dépendances à la connectivité réseau et réduit drastiquement la latence.
+Le TinyML est l'extension de l'intelligence artificielle jusqu'aux dispositifs d'extrémité, permettant l'exécution de modèles ML directement sur des microcontrôleurs (MCU) à ultra-faible consommation \cite{tsoukas2024,njor2024}. Ce changement de paradigme est fondamental pour la PdM, car il supprime les dépendances à la connectivité réseau et réduit drastiquement la latence.
 
 \subsection{Définition et Contraintes Techniques}
 
@@ -205,7 +214,7 @@ Ces contraintes imposent l'utilisation de modèles ML extrêmement légers. L'ob
 \begin{itemize}
 \item \textbf{Latence d'inférence :} quelques millisecondes à quelques dizaines de millisecondes selon l'application.
 \item \textbf{Latence système totale :} souvent < 100\,ms (acquisition + prétraitement + inférence + alerte), ce qui reste compatible avec les exigences industrielles de surveillance en temps réel.
-\end{itemize>
+\end{itemize}
 
 \subsection{Chaîne d'outils et Optimisation}
 
@@ -228,7 +237,7 @@ Il est important de reconnaître que la majorité des travaux académiques sur l
 \section{Synthèse critique et positionnement}
 \label{sec:synthese_critique}
 
-L'analyse de l'état de l'art confirme que la Maintenance Prédictive (PdM) est un impératif économique pour l'industrie, essentiel pour contrecarrer les coûts prohibitifs des arrêts non planifiés (variant de 36\,000\,\$/heure à 2,3 millions\,\$/heure selon le secteur \cite{siemens2024}). La surveillance vibratoire, encadrée par les normes ISO 20816, est la méthode de prédilection, avec une complexité d'analyse gérable grâce à l'extraction de caractéristiques fréquentielles (FFT).
+L'analyse de l'état de l'art confirme que la Maintenance Prédictive (PdM) est un impératif économique pour l'industrie, essentiel pour contrecarrer les coûts prohibitifs des arrêts non planifiés (variant de 36~000 dollars par heure à 2,3 millions de dollars par heure selon le secteur \cite{siemens2024}). La surveillance vibratoire, encadrée par les normes ISO 20816, est la méthode de prédilection, avec une complexité d'analyse gérable grâce à l'extraction de caractéristiques fréquentielles (FFT).
 
 Le paradigme TinyML offre une opportunité prometteuse pour explorer des approches d'IA plus accessibles pour les systèmes de surveillance contraints. Les études de cas récentes (Antonini 2023, Arciniegas 2025, Langer 2025) ont démontré la faisabilité technique de la détection d'anomalies en temps réel (<100\,ms) en utilisant des microcontrôleurs et des modèles optimisés \cite{antonini2023,arciniegas2025,langer2025}.
 
